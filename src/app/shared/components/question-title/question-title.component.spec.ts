@@ -29,7 +29,7 @@ describe("QuestionTitleComponent", () => {
 		expect(component).toBeTruthy();
 	});
 
-	it("should create a single line input", () => {
+	it("should have by default a single line input", () => {
 		const fixture = TestBed.createComponent(QuestionTitleComponent);
 		fixture.detectChanges();
 		const compiled = fixture.debugElement.nativeElement;

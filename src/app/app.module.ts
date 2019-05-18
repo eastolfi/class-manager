@@ -4,12 +4,15 @@ import { MDBBootstrapModulesPro, MDBSpinningPreloader } from "ng-uikit-pro-stand
 
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
+
 import { QuestionTitleComponent } from "./shared/components/question-title/question-title.component";
+import { AnswerMultichoiceComponent } from "./shared/components/answer-multichoice/answer-multichoice.component";
 
 @NgModule({
 	declarations: [
 		AppComponent,
-		QuestionTitleComponent
+		QuestionTitleComponent,
+		AnswerMultichoiceComponent
 	],
 	imports: [
 		BrowserModule,
