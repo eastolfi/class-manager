@@ -1,0 +1,20 @@
+<div>
+	<div class="form-row">
+		<div class="col">
+			<div class="md-form md-outline" *ngIf="!multiline">
+				<input type="text" id="title" class="form-control" [(ngModel)]="title" mdbInput />
+				<label for="title" class="">Título de la pregunta</label>
+			</div>
+
+			<div class="md-form md-outline" *ngIf="multiline">
+				<textarea type="text" id="title" class="md-textarea md-textarea-auto form-control" mdbInput></textarea>
+				<label for="title">Título de la pregunta</label>
+			</div>
+		</div>
+		<div class="col">
+			<div class="md-form">
+				<mdb-checkbox id="showScoreToggle" #checkbox [checked]="showScore" (change)="handleShowScoreClicked(checkbox.checked)">Mostrar nota</mdb-checkbox>
+			</div>
+		</div>
+	</div>
+</div>
