@@ -30,8 +30,6 @@ describe("AnswerMultichoiceComponent", () => {
 	});
 
 	it("should have the 'create answer' button", () => {
-		// const fixture = TestBed.createComponent(AnswerMultichoiceComponent);
-		// fixture.detectChanges();
 		const compiled = fixture.debugElement.nativeElement;
 		
 		expect(compiled.querySelector("#addAnswer").textContent).toBe("Añadir respuesta");

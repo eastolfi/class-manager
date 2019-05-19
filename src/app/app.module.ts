@@ -7,12 +7,14 @@ import { AppComponent } from "./app.component";
 
 import { QuestionTitleComponent } from "./shared/components/question-title/question-title.component";
 import { AnswerMultichoiceComponent } from "./shared/components/answer-multichoice/answer-multichoice.component";
+import { AnswerMultilineComponent } from "./shared/components/answer-multiline/answer-multiline.component";
 
 @NgModule({
 	declarations: [
 		AppComponent,
 		QuestionTitleComponent,
-		AnswerMultichoiceComponent
+		AnswerMultichoiceComponent,
+		AnswerMultilineComponent
 	],
 	imports: [
 		BrowserModule,
