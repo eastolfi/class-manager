@@ -1,25 +1,22 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 import { MDBBootstrapModulesPro, MDBSpinningPreloader } from "ng-uikit-pro-standard";
+import { FormsModule } from "@angular/forms";
 
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
-
-import { QuestionTitleComponent } from "./shared/components/question-title/question-title.component";
-import { AnswerMultichoiceComponent } from "./shared/components/answer-multichoice/answer-multichoice.component";
-import { AnswerMultilineComponent } from "./shared/components/answer-multiline/answer-multiline.component";
+import { ComponentsModule } from "./shared/components/components.module";
 
 @NgModule({
 	declarations: [
-		AppComponent,
-		QuestionTitleComponent,
-		AnswerMultichoiceComponent,
-		AnswerMultilineComponent
+		AppComponent
 	],
 	imports: [
 		BrowserModule,
+		FormsModule,
 		MDBBootstrapModulesPro,
-		AppRoutingModule
+		AppRoutingModule,
+		ComponentsModule
 	],
 	providers: [
 		MDBSpinningPreloader
