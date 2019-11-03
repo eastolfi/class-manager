@@ -1,0 +1,63 @@
+<!-- Score Calculation Type -->
+<div class="form-check">
+	<input type="radio" class="form-check-input" id="calculationRadioSimple" mdbInput
+		name="calculationType" [value]="CALCULATION_SIMPLE" [(ngModel)]="calculationType" (change)="refreshCalculations()" />
+	<label class="form-check-label" for="calculationRadioSimple">Puntuación Simple</label>
+</div>
+<div class="form-check">
+	<input type="radio" class="form-check-input" id="calculationRadioTotal" mdbInput
+		name="calculationType" [value]="CALCULATION_TOTAL" [(ngModel)]="calculationType" (change)="refreshCalculations()" />
+	<label class="form-check-label" for="calculationRadioTotal">Calcular puntuación total</label>
+</div>
+<div class="form-check">
+	<input type="radio" class="form-check-input" id="calculationRadioIndividual" mdbInput
+		name="calculationType" [value]="CALCULATION_INDIVIDUAL" [(ngModel)]="calculationType" (change)="refreshCalculations()" />
+	<label class="form-check-label" for="calculationRadioIndividual">Calcular puntuación de respuestas</label>
+</div>
+
+<!-- Simple Score Calculation -->
+<div *ngIf="isCalculationSimple">
+	<div class="md-form md-outline w-50 d-inline-block mr-1">
+		<input type="number" id="answerScoreForSimpleCalculation" class="form-control" [(ngModel)]="totalScore" (change)="calculateSimple()" mdbInput />
+		<label for="answerScoreForSimpleCalculation">Puntuación</label>
+	</div>
+	<small *ngIf="totalScore > 0" class="w-100 ml-2 d-inline-block font-italic text-muted">
+		Puntuación total de {{ totalScore }}
+	</small>
+</div>
+
+<!-- Total Score Calculation -->
+<div *ngIf="isCalculationTotal">
+	<div class="md-form md-outline w-50 d-inline-block mr-1">
+		<input type="number" id="answerScoreForTotalCalculation" class="form-control" [(ngModel)]="scorePerAnswer" (change)="calculateTotal()" mdbInput />
+		<label for="answerScoreForTotalCalculation">Puntuación por respuesta</label>
+	</div>
+	<small *ngIf="totalAnswers > 0 && totalScore > 0" class="w-100 ml-2 d-inline-block font-italic text-muted">
+		<span>multiplicado por</span>
+		<span class="mx-1">{{ totalAnswers }}</span>
+		<span [ngPlural]="totalAnswers">
+			<ng-template ngPluralCase="=1">respuesta</ng-template>
+			<ng-template ngPluralCase="other">respuestas</ng-template>
+		</span>
+		<span class="mx-1"><mdb-icon fas icon="arrow-right"></mdb-icon></span>
+		<span>puntuación total de {{ totalScore }}</span>
+	</small>
+</div>
+
+<!-- Answer Score Calculation -->
+<div *ngIf="isCalculationIndividual">
+	<div class="md-form md-outline w-50 d-inline-block mr-1">
+		<input type="number" id="totalScoreForIndividualCalculation" class="form-control" [(ngModel)]="totalScore" (change)="calculateIndividual()" mdbInput />
+		<label for="totalScoreForIndividualCalculation">Puntuación total</label>
+	</div>
+	<small *ngIf="totalAnswers > 0 && scorePerAnswer > 0" class="w-100 ml-2 d-inline-block font-italic text-muted">
+		<span>dividido entre</span>
+		<span class="mx-1">{{ totalAnswers }}</span>
+		<span [ngPlural]="totalAnswers">
+			<ng-template ngPluralCase="=1">respuesta</ng-template>
+			<ng-template ngPluralCase="other">respuestas</ng-template>
+		</span>
+		<span class="mx-1"><mdb-icon fas icon="arrow-right"></mdb-icon> {{ scorePerAnswer }}</span>
+		<span>por respuesta</span>
+	</small>
+</div>
