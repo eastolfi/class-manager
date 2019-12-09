@@ -1,6 +1,7 @@
-import { IdFactory } from "../factories/id.factory";
+import { IdFactory } from "../../factories/id.factory";
 
-import { IAnswer, AnswerType } from "./answer";
+import { IAnswer } from "../interfaces/answer";
+import { AnswerType } from "../enums/answer-type";
 
 export class AnswerSimple implements IAnswer {
 	public id: number = IdFactory.createId();

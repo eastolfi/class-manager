@@ -1,6 +1,4 @@
-export enum AnswerType {
-	SINGLE_CHOICE = 1, MULTI_CHOICE = 2
-}
+import { AnswerType } from "../enums/answer-type";
 
 export declare interface IAnswer {
 	id: number,

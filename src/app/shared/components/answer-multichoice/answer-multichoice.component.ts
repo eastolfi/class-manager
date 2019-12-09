@@ -1,8 +1,6 @@
 import { Component, OnInit, Output, EventEmitter, Input } from "@angular/core";
 
-import { IAnswer } from "../../models/answer";
-import { AnswerMultiple } from "../../models/answer.multiple";
-import { AnswerSimple } from "../../models/answer.simple";
+import { IAnswer, AnswerMultiple, AnswerSimple } from "../../models";
 
 @Component({
 	selector: "exagen-answer-multichoice",

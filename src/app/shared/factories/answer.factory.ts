@@ -1,6 +1,4 @@
-import { IAnswer, AnswerType } from "../models/answer";
-import { AnswerSimple } from "../models/answer.simple";
-import { AnswerMultiple } from "../models/answer.multiple";
+import { IAnswer, AnswerType, AnswerMultiple, AnswerSimple } from "../models";
 
 export class AnswerFactory {
 	public static createAnswer(type: AnswerType): IAnswer {

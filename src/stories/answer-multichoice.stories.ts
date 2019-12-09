@@ -2,7 +2,7 @@ import { storiesOf, moduleMetadata } from "@storybook/angular";
 import { MDBBootstrapModulesPro } from "ng-uikit-pro-standard";
 
 import { AnswerMultichoiceComponent } from "../app/shared/components/answer-multichoice/answer-multichoice.component";
-import { AnswerType } from "../app/shared/models/answer";
+import { AnswerType } from "../app/shared/models";
 
 storiesOf("Answers/Multi Choice", module)
 	.addDecorator(
