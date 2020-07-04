@@ -1,4 +1,4 @@
-<div class="p-3">
+<div class="p-3" [formGroup]="parentForm">
 	<div class="form-row">
 		<button (click)="addAnswer()" color="primary" rounded="true" size="md" class="m-0 px-3 py-2" type="button" id="addAnswer" mdbBtn mdbWavesEffect>
 			<mdb-icon fas icon="plus"></mdb-icon>
@@ -6,28 +6,31 @@
 		</button>
 	</div>
 
-	<div class="form-row" *ngFor="let individualAnswer of answer.content; index as i; trackBy: id">
-		<div class="col-6">
+	<div class="form-row" formArrayName="content" *ngFor="let individualAnswer of answerContentArray; let i = index;">
+		<div class="col-6" [formGroup]="answerContent.controls[i]">
 			<div class="md-form input-group md-outline">
-				<input type="text" [attr.id]="'content_' + individualAnswer.id" class="form-control" mdbInput [(ngModel)]="individualAnswer.content" />
-				<label [attr.for]="'content_' + individualAnswer.id" class="">Respuesta {{ i + 1 }}</label>
+				<input type="text" formControlName="content" />
+				<!-- <input type="text" [attr.id]="'content_' + individualAnswer.id" class="form-control" mdbInput formControlName="content" />
+				<label [attr.for]="'content_' + individualAnswer.id" class="">Respuesta {{ i + 1 }}</label> -->
 
 				<div class="input-group-append">
-					<button (click)="deleteAnswer(individualAnswer)" color="danger" size="md" class="m-0 px-3 py-2" type="button"
+					<button (click)="deleteAnswer(i)" color="danger" size="md" class="m-0 px-3 py-2" type="button"
 						[attr.id]="'del_' + individualAnswer.id" mdbBtn mdbWavesEffect>
-						
+
 						<mdb-icon fas icon="trash"></mdb-icon>
 					</button>
 				</div>
 			</div>
 		</div>
 
-		<div class="col-6 pt-4" *ngIf="answer.scorePerAnswer > 0">
-			<span>{{ answer.scorePerAnswer }}</span>
-			<span class="ml-1" [ngPlural]="answer.scorePerAnswer">
+		<div class="col-6 pt-4" *ngIf="scorePerAnswer.value > 0">
+			<span>{{ scorePerAnswer.value }}</span>
+			<span class="ml-1" [ngPlural]="scorePerAnswer.value">
 				<ng-template ngPluralCase="=1">punto</ng-template>
 				<ng-template ngPluralCase="other">puntos</ng-template>
 			</span>
 		</div>
 	</div>
 </div>
+
+{{ parentForm.value | json }}
