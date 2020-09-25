@@ -1,0 +1,11 @@
+<form [formGroup]="form">
+    <mat-form-field class="example-full-width">
+        <mat-label>Respuesta</mat-label>
+
+        <input type="tel" matInput placeholder="Escribe la respuesta" formControlName="content">
+
+        <button *ngIf="allowDeletion" (click)="delete()" matSuffix mat-icon-button aria-label="Delete answer">
+            <mat-icon>delete_outline</mat-icon>
+        </button>
+    </mat-form-field>
+</form>
