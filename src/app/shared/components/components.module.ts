@@ -1,28 +1,36 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
+import { ExamBuilderComponent } from "./exam-builder/exam-builder.component";
 import { QuestionTitleComponent } from "./question-title/question-title.component";
-import { AnswerMultichoiceComponent } from "./answer-multichoice/answer-multichoice.component";
-import { AnswerMultilineComponent } from "./answer-multiline/answer-multiline.component";
+import { AnswerMultichoiceComponent } from "./answers/answer-multichoice/answer-multichoice.component";
+import { AnswerMultilineComponent } from "./answers/answer-multiline/answer-multiline.component";
 import { QuestionBuilderComponent } from "./question-builder/question-builder.component";
 import { ScoreCalculatorComponent } from "./score-calculator/score-calculator.component";
 
+export const COMPONENTS = [
+	ExamBuilderComponent,
+	QuestionTitleComponent,
+	AnswerMultichoiceComponent,
+	AnswerMultilineComponent,
+	QuestionBuilderComponent,
+	ScoreCalculatorComponent
+]
+
 @NgModule({
 	declarations: [
-		QuestionTitleComponent,
-		AnswerMultichoiceComponent,
-		AnswerMultilineComponent,
-		QuestionBuilderComponent,
-		ScoreCalculatorComponent
+		...COMPONENTS
 	],
 	imports: [
 		CommonModule,
-		FormsModule,
+		// FormsModule,
+        ReactiveFormsModule,
 		BrowserAnimationsModule,
 	],
 	exports: [
+		ExamBuilderComponent,
 		QuestionTitleComponent,
 		AnswerMultichoiceComponent,
 		AnswerMultilineComponent,

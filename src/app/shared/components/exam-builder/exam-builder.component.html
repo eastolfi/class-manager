@@ -1,0 +1,43 @@
+<form class="mx-3" [formGroup]="form">
+
+    <div class="row">
+        <div class="col-12">
+            <mat-form-field class="example-full-width">
+                <mat-label>Nombre del Documento</mat-label>
+                <input matInput placeholder="examen_01-12-20" formControlName="documentName">
+            </mat-form-field>
+        </div>
+    </div>
+
+    <div class="row mt-3">
+        <div class="col-12">
+            <!-- <button (click)="addQuestion()" color="primary" rounded="true" size="md" class="m-0 px-3 py-2" type="button" id="addAnswer" mdbBtn mdbWavesEffect>
+                <mdb-icon fas icon="plus"></mdb-icon>
+                <span class="ml-1">Añadir Pregunta</span>
+            </button> -->
+            <button mat-raised-button color="accent" (click)="addQuestion()">
+                <span>Añadir Pregunta</span>
+                <mat-icon class="ml-2">add_circle</mat-icon>
+            </button>
+        </div>
+    </div>
+
+    <div class="row mt-3">
+        <div class="col-12">
+            <div *ngFor="let _ of questions.controls; let i = index" formArrayName="questions">
+                <exagen-question-builder [form]="questions.controls[i]"></exagen-question-builder>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-3">
+        <div class="col-12">
+            <button mat-raised-button color="primary" (click)="generateExam()" [disabled]="!questions.controls.length">
+                <span>Generar Examen</span>
+                <mat-icon class="ml-2">check_circle</mat-icon>
+            </button>
+        </div>
+    </div>
+
+    <!-- {{ form.value | json }} -->
+</form>

@@ -5,9 +5,9 @@ import { HttpClientModule } from "@angular/common/http";
 
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
-import { ComponentsModule } from "./shared/components/components.module";
 import { AlertModule } from './shared/components/alert';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ExamBuilderModule } from './shared/components/exam-builder/exam-builder.module';
 
 @NgModule({
 	declarations: [
@@ -19,7 +19,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 		HttpClientModule,
 		BrowserAnimationsModule,
 		AppRoutingModule,
-		ComponentsModule,
+        ExamBuilderModule,
 		AlertModule.forRoot()
 	],
 	providers: [
