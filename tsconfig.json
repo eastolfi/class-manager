@@ -20,9 +20,9 @@
 			"dom"
 		],
 		"paths": {
-			"@app/": ["./src/app/*"],
-			"@env/": ["./src/environments/*"],
-			"@shared/": ["./src/app/shared/*"]
+			"@app/*": ["src/app/*"],
+			"@env/*": ["src/environments/*"],
+			"@shared/*": ["src/app/shared/*"]
 		}
 	}
 }

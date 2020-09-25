@@ -5,9 +5,9 @@
     "types": [],
 	"baseUrl": "./",
 	"paths": {
-		"@app/": ["./app/*"],
-		"@env/": ["./environments/*"],
-		"@shared/": ["./app/shared/*"]
+		"@app/*": ["app/*"],
+		"@env/*": ["environments/*"],
+		"@shared/*": ["app/shared/*"]
 	}
   },
   "exclude": [
