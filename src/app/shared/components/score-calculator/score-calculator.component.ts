@@ -1,4 +1,5 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges, Output, EventEmitter } from "@angular/core";
+import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
 export const enum CalculationType {
 	SIMPLE, CALCULATE_TOTAL, CALCULATE_INDIVIDUAL
@@ -9,78 +10,108 @@ export const enum CalculationType {
 	templateUrl: "./score-calculator.component.html",
 	styleUrls: ["./score-calculator.component.scss"]
 })
-export class ScoreCalculatorComponent implements OnInit, OnChanges {
-	@Input()
-	public totalAnswers: number;
-	
-	@Output()
-	public scoreCalculated: EventEmitter<{ totalScore: number, scorePerAnswer: number }> = new EventEmitter();
-	
-	public totalScore: number;
-	public scorePerAnswer: number;
-
+export class ScoreCalculatorComponent implements OnInit {
 	public CALCULATION_SIMPLE = CalculationType.SIMPLE;
 	public CALCULATION_TOTAL = CalculationType.CALCULATE_TOTAL;
-	public CALCULATION_INDIVIDUAL = CalculationType.CALCULATE_INDIVIDUAL;
+    public CALCULATION_INDIVIDUAL = CalculationType.CALCULATE_INDIVIDUAL;
 
-	public calculationType: CalculationType = CalculationType.SIMPLE;
+	@Input()
+	public form: FormGroup;
 
-	get isCalculationSimple() { return this.calculationType === CalculationType.SIMPLE }
-	get isCalculationTotal() { return this.calculationType === CalculationType.CALCULATE_TOTAL }
-	get isCalculationIndividual() { return this.calculationType === CalculationType.CALCULATE_INDIVIDUAL }
+	@Output()
+	public scoreCalculated: EventEmitter<{ totalScore: number, scorePerAnswer: number }> = new EventEmitter();
 
-	constructor() {
-	}
+	constructor(private readonly fb: FormBuilder) {}
 
 	ngOnInit() {
-		this.refreshCalculations()
+        this.initForm();
+        this.initListeners();
+		this.refreshCalculations();
+    }
+
+    public get totalAnswers(): number { return this.form.get('totalAnswers').value as number }
+	public get totalScore(): number { return this.form.get('totalScore').value as number }
+	public get scorePerAnswer(): number { return this.form.get('scorePerAnswer').value as number }
+	public get calculationTypeControl(): FormControl { return this.form.get('calculationType') as FormControl }
+
+    public get isCalculationSimple() { return this.calculationTypeControl.value === CalculationType.SIMPLE }
+	public get isCalculationTotal() { return this.calculationTypeControl.value === CalculationType.CALCULATE_TOTAL }
+	public get isCalculationIndividual() { return this.calculationTypeControl.value === CalculationType.CALCULATE_INDIVIDUAL }
+
+    private initForm(): void {
+        if (!this.form) {
+            this.form = this.fb.group({
+                calculationType: [CalculationType.SIMPLE],
+                totalAnswers: [0],
+                totalScore: [0],
+                scorePerAnswer: [0]
+            });
+        }
+    }
+
+    private initListeners(): void {
+        this.calculationTypeControl.valueChanges.subscribe((value: CalculationType) => {
+            this.refreshCalculations();
+        });
+        this.form.get('totalAnswers').valueChanges.subscribe(() => {
+            this.refreshCalculations();
+        });
+        this.form.get('scorePerAnswer').valueChanges.subscribe((value: number) => {
+            this.calculateTotal();
+        });
+        this.form.get('totalScore').valueChanges.subscribe((value: number) => {
+            this.calculateScorePerAnswer();
+        });
+    }
+
+    private refreshCalculations() {
+        // Fix this
+        this.form.patchValue({
+            totalScore: this.totalScore,
+            scorePerAnswer: 0
+        }, { emitEvent: false });
+        this.emitScoreCalculated(0, 0);
+		// if (this.isCalculationIndividual) {
+		// 	this.calculateScorePerAnswer();
+		// } else if (this.isCalculationTotal) {
+		// 	this.calculateTotal();
+		// } else {
+		// 	this.calculateSimple();
+		// }
 	}
 
-	ngOnChanges(changes: SimpleChanges): void {
-		// if we have a number of answers, trigger the calculation
-		if (changes.totalAnswers) {
-			this.refreshCalculations();
-		}
-	}
+    // Merge with individual
+    private calculateSimple() {
+        this.form.patchValue({
+            totalScore: this.totalScore,
+            scorePerAnswer: 0
+        }, { emitEvent: false });
+        this.emitScoreCalculated(this.totalScore || 0, 0);
+    }
 
-	public refreshCalculations() {
-		if (this.isCalculationIndividual) {
-			this.calculateIndividual();
-		} else if (this.isCalculationTotal) {
-			this.calculateTotal();
-		} else {
-			this.calculateSimple();
-		}
-	}
+    private calculateTotal() {
+        const totalScore = parseFloat((this.scorePerAnswer * this.totalAnswers).toFixed(2));
+        this.form.get('totalScore').patchValue(
+            totalScore,
+            { emitEvent: false }
+        );
+        this.emitScoreCalculated(totalScore, this.scorePerAnswer || 0);
+    }
 
-	public calculateSimple() {
-		if (this.totalScore > 0) {
-			this.scoreCalculated.emit({
-				totalScore: this.totalScore,
-				scorePerAnswer: null
-			})
-		}
-	}
+    private calculateScorePerAnswer() {
+        const scorePerAnswer = this.totalAnswers > 0 ? parseFloat((this.totalScore / this.totalAnswers).toFixed(2)) : 0;
 
-	public calculateTotal() {
-		if (this.scorePerAnswer > 0 && this.totalAnswers > 0) {
-			this.totalScore = parseFloat((this.scorePerAnswer * this.totalAnswers).toFixed(2));
+        this.form.get('scorePerAnswer').patchValue(
+            scorePerAnswer,
+            { emitEvent: false }
+        );
 
-			this.scoreCalculated.emit({
-				totalScore: this.totalScore,
-				scorePerAnswer: this.scorePerAnswer
-			});
-		}
-	}
+        this.emitScoreCalculated(this.totalScore || 0, scorePerAnswer);
+    }
 
-	public calculateIndividual() {
-		if (this.totalScore > 0 && this.totalAnswers > 0) {
-			this.scorePerAnswer = parseFloat((this.totalScore / this.totalAnswers).toFixed(2));
-
-			this.scoreCalculated.emit({
-				totalScore: this.totalScore,
-				scorePerAnswer: this.scorePerAnswer
-			});
-		}
-	}
+    private emitScoreCalculated(totalScore: number, scorePerAnswer: number): void {
+        this.scoreCalculated.emit({
+            totalScore, scorePerAnswer
+        })
+    }
 }
