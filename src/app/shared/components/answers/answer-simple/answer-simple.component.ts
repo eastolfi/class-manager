@@ -1,5 +1,13 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
+
+import { AnswerFactory } from '@app/shared/factories/answer.factory';
+import { AnswerType } from '@app/shared/models';
+
+export interface AnswerSimple {
+    id: number;
+    content: string;
+}
 
 @Component({
     selector: 'exagen-answer-simple',
@@ -15,21 +23,18 @@ export class AnswerSimpleComponent implements OnInit {
     public allowDeletion = false;
 
     @Output()
-    public onDelete: EventEmitter<void> = new EventEmitter();
+    public onDelete: EventEmitter<AnswerSimple> = new EventEmitter();
 
-
-    constructor(private readonly fb: FormBuilder) { }
+    constructor(private readonly answerFactory: AnswerFactory) { }
 
     ngOnInit() {
         if (!this.form) {
-            this.form = this.fb.group({
-                content: ['']
-            })
+            this.form = this.answerFactory.createAnswerForm(AnswerType.SINGLE_CHOICE);
         }
     }
 
     public delete(): void {
-        this.onDelete.emit();
+        this.onDelete.emit(this.form.value as AnswerSimple);
     }
 
 }

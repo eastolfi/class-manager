@@ -9,13 +9,18 @@ import { MatButtonModule } from '@angular/material/button';
 import { AnswerSimpleComponent } from './answer-simple.component';
 
 @NgModule({
-    declarations: [AnswerSimpleComponent],
+    declarations: [
+        AnswerSimpleComponent
+    ],
     imports: [
         CommonModule,
         ReactiveFormsModule,
         MatInputModule,
         MatIconModule,
         MatButtonModule
+    ],
+    exports: [
+        AnswerSimpleComponent
     ]
 })
 export class AnswerSimpleModule { }
