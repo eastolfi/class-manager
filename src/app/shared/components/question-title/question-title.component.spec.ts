@@ -1,7 +1,6 @@
 import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
 import { QuestionTitleComponent } from "./question-title.component";
-import { MDBBootstrapModulesPro } from "ng-uikit-pro-standard";
 import { FormsModule } from "@angular/forms";
 
 describe("QuestionTitleComponent", () => {
@@ -12,7 +11,6 @@ describe("QuestionTitleComponent", () => {
 		TestBed.configureTestingModule({
 			imports: [
 				FormsModule,
-				MDBBootstrapModulesPro.forRoot()
 			],
 			declarations: [QuestionTitleComponent]
 		})
@@ -33,7 +31,7 @@ describe("QuestionTitleComponent", () => {
 		const fixture = TestBed.createComponent(QuestionTitleComponent);
 		fixture.detectChanges();
 		const compiled = fixture.debugElement.nativeElement;
-		
+
 		expect(compiled.querySelector("#title").tagName.toLowerCase()).toBe("input");
 	});
 
@@ -42,7 +40,7 @@ describe("QuestionTitleComponent", () => {
 		fixture.componentInstance.multiline = true;
 		fixture.detectChanges();
 		const compiled = fixture.debugElement.nativeElement;
-		
+
 		expect(compiled.querySelector("#title").tagName.toLowerCase()).toBe("textarea");
 	});
 
@@ -53,7 +51,7 @@ describe("QuestionTitleComponent", () => {
 
 			done();
 		})
-		
+
 		const compiled = fixture.debugElement.nativeElement;
 		fixture.detectChanges();
 		compiled.querySelector("#showScoreToggle input[type='checkbox']").click();

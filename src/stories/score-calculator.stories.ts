@@ -1,6 +1,5 @@
 import { storiesOf, moduleMetadata } from "@storybook/angular";
 import { action, decorate } from "@storybook/addon-actions";
-import { MDBBootstrapModulesPro } from "ng-uikit-pro-standard";
 
 import { ScoreCalculatorComponent, CalculationType } from "../app/shared/components/score-calculator/score-calculator.component";
 
@@ -8,7 +7,6 @@ storiesOf("Score Calculator/Simple", module)
 	.addDecorator(
 		moduleMetadata({
 			imports: [
-				MDBBootstrapModulesPro
 			]
 		})
 	)
@@ -32,7 +30,6 @@ storiesOf("Score Calculator/Total", module)
 	.addDecorator(
 		moduleMetadata({
 			imports: [
-				MDBBootstrapModulesPro
 			]
 		})
 	)
@@ -56,7 +53,6 @@ storiesOf("Score Calculator/Per Answer", module)
 	.addDecorator(
 		moduleMetadata({
 			imports: [
-				MDBBootstrapModulesPro
 			]
 		})
 	)

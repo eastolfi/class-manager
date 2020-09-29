@@ -1,6 +1,5 @@
 import { ReactiveFormsModule } from '@angular/forms';
 import { storiesOf, moduleMetadata } from "@storybook/angular";
-import { MDBBootstrapModulesPro } from "ng-uikit-pro-standard";
 
 import { AnswerMultilineComponent } from "../app/shared/components/answer-multiline/answer-multiline.component";
 import { AnswerMultilineMapper } from '../app/shared/components/answer-multiline/answer-multiline.mapper';
@@ -11,7 +10,6 @@ storiesOf("Answers/Multi Line", module)
         moduleMetadata({
             imports: [
                 ReactiveFormsModule,
-                MDBBootstrapModulesPro
             ]
         })
     )

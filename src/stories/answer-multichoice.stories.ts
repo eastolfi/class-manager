@@ -1,6 +1,5 @@
 import { ReactiveFormsModule, FormGroup, FormArray, FormControl } from '@angular/forms';
 import { storiesOf, moduleMetadata } from "@storybook/angular";
-import { MDBBootstrapModulesPro } from "ng-uikit-pro-standard";
 
 import { AnswerMultichoiceComponent } from "../app/shared/components/answer-multichoice/answer-multichoice.component";
 import { AnswerType } from "../app/shared/models";
@@ -10,7 +9,6 @@ storiesOf("Answers/Multi Choice", module)
 		moduleMetadata({
 			imports: [
 				ReactiveFormsModule,
-				MDBBootstrapModulesPro
 			]
 		})
 	)

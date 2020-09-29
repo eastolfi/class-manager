@@ -1,6 +1,5 @@
 import { storiesOf, moduleMetadata } from "@storybook/angular";
 import { action } from "@storybook/addon-actions";
-import { MDBBootstrapModulesPro } from "ng-uikit-pro-standard";
 
 import { QuestionTitleComponent } from "../app/shared/components/question-title/question-title.component";
 
@@ -8,7 +7,6 @@ storiesOf("Question Title", module)
 	.addDecorator(
 		moduleMetadata({
 			imports: [
-				MDBBootstrapModulesPro
 			]
 		})
 	)

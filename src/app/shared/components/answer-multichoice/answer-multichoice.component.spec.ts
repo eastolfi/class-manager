@@ -1,7 +1,6 @@
 import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
 import { AnswerMultichoiceComponent, IAnswer } from "./answer-multichoice.component";
-import { MDBBootstrapModulesPro } from "ng-uikit-pro-standard";
 import { FormsModule } from "@angular/forms";
 
 describe("AnswerMultichoiceComponent", () => {
@@ -12,7 +11,6 @@ describe("AnswerMultichoiceComponent", () => {
 		TestBed.configureTestingModule({
 			imports: [
 				FormsModule,
-				MDBBootstrapModulesPro.forRoot()
 			],
 			declarations: [AnswerMultichoiceComponent]
 		})
@@ -31,7 +29,7 @@ describe("AnswerMultichoiceComponent", () => {
 
 	it("should have the 'create answer' button", () => {
 		const compiled = fixture.debugElement.nativeElement;
-		
+
 		expect(compiled.querySelector("#addAnswer").textContent).toBe("Añadir respuesta");
 	});
 

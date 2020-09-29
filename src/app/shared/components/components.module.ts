@@ -2,7 +2,6 @@ import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { FormsModule } from "@angular/forms";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { MDBBootstrapModulesPro } from "ng-uikit-pro-standard";
 
 import { QuestionTitleComponent } from "./question-title/question-title.component";
 import { AnswerMultichoiceComponent } from "./answer-multichoice/answer-multichoice.component";
@@ -22,7 +21,6 @@ import { ScoreCalculatorComponent } from "./score-calculator/score-calculator.co
 		CommonModule,
 		FormsModule,
 		BrowserAnimationsModule,
-		MDBBootstrapModulesPro
 	],
 	exports: [
 		QuestionTitleComponent,

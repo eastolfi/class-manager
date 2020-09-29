@@ -1,5 +1,4 @@
 import { async, ComponentFixture, TestBed } from "@angular/core/testing";
-import { MDBBootstrapModulesPro } from "ng-uikit-pro-standard";
 
 import { AnswerMultilineComponent } from "./answer-multiline.component";
 
@@ -10,7 +9,6 @@ describe("AnswerMultilineComponent", () => {
 	beforeEach(async(() => {
 		TestBed.configureTestingModule({
 			imports: [
-				MDBBootstrapModulesPro.forRoot()
 			],
 			declarations: [AnswerMultilineComponent]
 		})
@@ -29,7 +27,7 @@ describe("AnswerMultilineComponent", () => {
 
 	it("should have a textarea", () => {
 		const compiled = fixture.debugElement.nativeElement;
-		
+
 		expect(compiled.querySelector("#answer-area").tagName.toLowerCase()).toBe("textarea");
 	});
 });
