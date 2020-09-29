@@ -1,28 +1,38 @@
 import { ReactiveFormsModule } from '@angular/forms';
 import { storiesOf, moduleMetadata } from "@storybook/angular";
 
-import { AnswerMultilineComponent } from "../app/shared/components/answer-multiline/answer-multiline.component";
-import { AnswerMultilineMapper } from '../app/shared/components/answer-multiline/answer-multiline.mapper';
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+
+import { AnswerMultilineComponent } from "../app/shared/components/answers/answer-multiline/answer-multiline.component";
+import { AnswerMultilineMapper } from '../app/shared/components/answers/answer-multiline/answer-multiline.mapper';
 import { AnswerMultiline } from '../app/shared/models/implementations/answer.multiline';
 
 storiesOf("Answers/Multi Line", module)
     .addDecorator(
         moduleMetadata({
             imports: [
-                ReactiveFormsModule,
+                BrowserAnimationsModule,
+				ReactiveFormsModule,
+				MatInputModule,
+				MatIconModule,
+				MatButtonModule
             ]
         })
     )
     .add("by default", () => ({
         component: AnswerMultilineComponent,
         props: {
-            parentForm: AnswerMultilineMapper.createFormGroup()
+            form: AnswerMultilineMapper.createFormGroup()
         }
     }))
     .add("with a multiline content", () => ({
         component: AnswerMultilineComponent,
         props: {
-            parentForm: AnswerMultilineMapper.createFormGroupFromModel({
+            form: AnswerMultilineMapper.createFormGroupFromModel({
                 content: "First Line\nSecond Line\nThird Line"
             } as AnswerMultiline)
         }

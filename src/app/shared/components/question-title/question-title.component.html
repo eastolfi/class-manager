@@ -1,29 +1,32 @@
-<div>
-	<div class="form-row" *ngIf="title.showScore">
-		<div class="col">
-			<span>{{ title.score || 0 }}</span>
-			<span class="ml-1" [ngPlural]="title.score || 0">
-				<ng-template ngPluralCase="=1">punto</ng-template>
-				<ng-template ngPluralCase="other">puntos</ng-template>
-			</span>
-		</div>
-	</div>
-	<div class="form-row">
-		<div class="col-8">
-			<div class="md-form md-outline" *ngIf="!multiline">
-				<input type="text" id="title" class="form-control" [(ngModel)]="title.title" mdbInput />
-				<label for="title" class="">Título de la pregunta</label>
-			</div>
+<div [formGroup]="form">
+    <div class="row" *ngIf="showScore">
+        <div class="col-12">
+            <span>{{ score || 0 }}</span>
+            <span class="ml-1" [ngPlural]="score || 0">
+                <ng-template ngPluralCase="=1">punto</ng-template>
+                <ng-template ngPluralCase="other">puntos</ng-template>
+            </span>
+        </div>
+    </div>
 
-			<div class="md-form md-outline" *ngIf="multiline">
-				<textarea type="text" id="title" class="md-textarea md-textarea-auto form-control" [(ngModel)]="title.title" mdbInput></textarea>
-				<label for="title">Título de la pregunta</label>
-			</div>
-		</div>
-		<div class="col-4">
-			<div class="md-form">
-				<mdb-checkbox [checked]="title.showScore" (change)="handleShowScoreClicked($event)">Mostrar nota</mdb-checkbox>
-			</div>
-		</div>
-	</div>
+    <div class="row">
+        <div class="col-8" *ngIf="!multiline">
+            <mat-form-field class="w-100">
+                <mat-label>Título</mat-label>
+
+                <input type="text" matInput placeholder="Título de la pregunta" formControlName="title">
+            </mat-form-field>
+        </div>
+
+        <div class="col-8" *ngIf="multiline">
+            <mat-form-field class="w-100">
+                <mat-label>Título</mat-label>
+                <textarea matInput placeholder="Título de la pregunta" formControlName="title"></textarea>
+            </mat-form-field>
+        </div>
+
+        <div class="col-4">
+            <mat-checkbox formControlName="showScore">Mostrar nota</mat-checkbox>
+        </div>
+    </div>
 </div>
