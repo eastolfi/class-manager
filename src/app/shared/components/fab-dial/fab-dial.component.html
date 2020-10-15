@@ -1,0 +1,30 @@
+<!-- <input hidden #uploader type="file" (change)="importFile($event)" />
+<a hidden #downloader [href]="fileUrl" download="file.txt">DownloadFile</a>
+
+<button class="page-action dial-item one" [class.open]="isOpen" (click)="export(downloader)" mat-fab color="primary"
+    aria-label="">
+    <mat-icon>cloud_download</mat-icon>
+</button>
+<button class="page-action dial-item two" [class.open]="isOpen" (click)="import(uploader)" mat-fab color="primary"
+    aria-label="">
+    <mat-icon>cloud_upload</mat-icon>
+</button>
+
+<button class="page-action dial-item three" [class.open]="isOpen" (click)="addStudent()" mat-fab color="primary"
+    aria-label="">
+    <mat-icon>person_add</mat-icon>
+</button> -->
+<button *ngFor="let item of items"
+    aria-label=""
+    class="dial-item"
+    [class.open]="isOpen"
+    [style.transform]="'translateX(' + item.translateX + 'px) translateY(' + item.translateY + 'px)'"
+    mat-fab
+    color="accent"
+    (click)="item.onClick()">
+    <mat-icon>{{ item.icon }}</mat-icon>
+</button>
+
+<button class="dial" [class.open]="isOpen" (click)="toggleDial()" mat-fab color="primary" aria-label="Fab Button">
+    <mat-icon>add</mat-icon>
+</button>
