@@ -1,0 +1,15 @@
+<form [formGroup]="form">
+    <h1 mat-dialog-title>Detalle de {{ initialLabel }}</h1>
+
+    <div mat-dialog-content>
+        <!-- <p>What's your favorite animal?</p> -->
+        <mat-form-field>
+            <mat-label>Nombre</mat-label>
+            <input matInput placeholder="Ex. Hakim" formControlName="label">
+        </mat-form-field>
+    </div>
+    <div mat-dialog-actions>
+        <button mat-button (click)="confirm()" color="primary">Confirmar</button>
+        <!-- <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>Ok</button> -->
+    </div>
+</form>
