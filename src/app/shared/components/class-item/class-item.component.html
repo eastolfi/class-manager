@@ -1,0 +1,32 @@
+<ng-container *ngIf="item">
+    <div class="example-box draggable class-element" [class.horizontal]="item.orientation === 'horizontal'"
+        *ngIf="item.type === 'class-element'"
+        cdkDrag
+        (cdkDragMoved)="onDrag(item, $event)"
+        (cdkDragReleased)="onDragReleased(item)"
+        [cdkDragFreeDragPosition]="item.lastKnownPosition"
+    >
+        <span>{{ item.label }}</span>
+        <button *ngIf="menu" class="action" mat-icon-button (click)="onMenuOpened(item)"
+            [matMenuTriggerFor]="menu" [matMenuTriggerData]="'test'"
+            aria-label="Example icon button with a home icon">
+            <mat-icon>more_vert</mat-icon>
+        </button>
+    </div>
+
+    <div class="example-box draggable student" [style.background-color]="item.color"
+        *ngIf="item.type === 'student'"
+        cdkDrag
+        (dblclick)="setOpenerAndEdit(item)"
+        (cdkDragMoved)="onDrag(item, $event)"
+        (cdkDragReleased)="onDragReleased(item)"
+        [cdkDragFreeDragPosition]="item.lastKnownPosition"
+    >
+        <span>{{ item.label }}</span>
+
+        <button *ngIf="menu" class="action" mat-icon-button (click)="onMenuOpened(item)" [matMenuTriggerFor]="menu"
+            [matMenuTriggerData]="'test'" aria-label="Example icon button with a home icon">
+            <mat-icon>more_vert</mat-icon>
+        </button>
+    </div>
+</ng-container>
