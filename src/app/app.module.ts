@@ -1,9 +1,13 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
-import { MDBBootstrapModulesPro, MDBSpinningPreloader } from "ng-uikit-pro-standard";
+import { FormsModule } from "@angular/forms";
+import { HttpClientModule } from "@angular/common/http";
 
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
+import { AlertModule } from './shared/components/alert';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ExamBuilderModule } from './shared/components/exam-builder/exam-builder.module';
 
 @NgModule({
 	declarations: [
@@ -11,11 +15,14 @@ import { AppComponent } from "./app.component";
 	],
 	imports: [
 		BrowserModule,
-		MDBBootstrapModulesPro,
-		AppRoutingModule
+		FormsModule,
+		HttpClientModule,
+		BrowserAnimationsModule,
+		AppRoutingModule,
+        ExamBuilderModule,
+		AlertModule.forRoot()
 	],
 	providers: [
-		MDBSpinningPreloader
 	],
 	bootstrap: [AppComponent]
 })

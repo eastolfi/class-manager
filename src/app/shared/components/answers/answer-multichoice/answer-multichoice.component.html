@@ -1,0 +1,52 @@
+<form [formGroup]="form">
+	<div class="row">
+		<div class="col-12">
+			<button mat-raised-button color="primary" (click)="addAnswer()">
+				<span>Añadir respuesta</span>
+				<mat-icon class="ml-2">add_circle_outline</mat-icon>
+			</button>
+		</div>
+	</div>
+
+	<div class="row mt-3">
+		<div class="col-12" *ngFor="let _ of choices.controls; let i = index" formArrayName="choices">
+			<exagen-answer-simple [form]="choices.controls[i]" [allowDeletion]="true" (delete)="onDeleteAnswer(i)"></exagen-answer-simple>
+		</div>
+	</div>
+</form>
+
+<!-- <div class="p-3" [formGroup]="parentForm">
+	<div class="form-row">
+		<button (click)="addAnswer()" color="primary" rounded="true" size="md" class="m-0 px-3 py-2" type="button" id="addAnswer" mdbBtn mdbWavesEffect>
+			<mdb-icon fas icon="plus"></mdb-icon>
+			<span class="ml-1">Añadir respuesta</span>
+		</button>
+	</div>
+
+	<div class="form-row" formArrayName="content" *ngFor="let individualAnswer of answerContentArray; let i = index;">
+		<div class="col-6" [formGroup]="answerContent.controls[i]">
+			<div class="md-form input-group md-outline">
+				<input type="text" [attr.id]="'content_' + individualAnswer.id" class="form-control" mdbInput formControlName="content" />
+				<label [attr.for]="'content_' + individualAnswer.id" class="">Respuesta {{ i + 1 }}</label>
+
+				<div class="input-group-append">
+					<button (click)="deleteAnswer(i)" color="danger" size="md" class="m-0 px-3 py-2" type="button"
+						[attr.id]="'del_' + individualAnswer.id" mdbBtn mdbWavesEffect>
+
+						<mdb-icon fas icon="trash"></mdb-icon>
+					</button>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-6 pt-4" *ngIf="scorePerAnswer.value > 0">
+			<span>{{ scorePerAnswer.value }}</span>
+			<span class="ml-1" [ngPlural]="scorePerAnswer.value">
+				<ng-template ngPluralCase="=1">punto</ng-template>
+				<ng-template ngPluralCase="other">puntos</ng-template>
+			</span>
+		</div>
+	</div>
+</div> -->
+
+<!-- {{ form.value | json }} -->

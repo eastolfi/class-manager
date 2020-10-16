@@ -1,0 +1,32 @@
+<div [formGroup]="form">
+    <div class="row" *ngIf="showScore">
+        <div class="col-12">
+            <span>{{ score || 0 }}</span>
+            <span class="ml-1" [ngPlural]="score || 0">
+                <ng-template ngPluralCase="=1">punto</ng-template>
+                <ng-template ngPluralCase="other">puntos</ng-template>
+            </span>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-8" *ngIf="!multiline">
+            <mat-form-field class="w-100">
+                <mat-label>Título</mat-label>
+
+                <input type="text" matInput placeholder="Título de la pregunta" formControlName="title">
+            </mat-form-field>
+        </div>
+
+        <div class="col-8" *ngIf="multiline">
+            <mat-form-field class="w-100">
+                <mat-label>Título</mat-label>
+                <textarea matInput placeholder="Título de la pregunta" formControlName="title"></textarea>
+            </mat-form-field>
+        </div>
+
+        <div class="col-4">
+            <mat-checkbox formControlName="showScore">Mostrar nota</mat-checkbox>
+        </div>
+    </div>
+</div>
