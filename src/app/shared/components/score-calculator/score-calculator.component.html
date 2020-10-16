@@ -5,13 +5,13 @@
     <div class="row">
         <div class="col-12">
             <mat-radio-group aria-label="Select an option" formControlName="calculationType">
-                <mat-radio-button [value]="CALCULATION_SIMPLE" >
+                <mat-radio-button [value]="CALCULATION_SIMPLE" [disabled]="!isCalculationAllowed(CALCULATION_SIMPLE)">
                     Puntuación Simple
                 </mat-radio-button>
-                <mat-radio-button [value]="CALCULATION_TOTAL" >
+                <mat-radio-button [value]="CALCULATION_TOTAL" [disabled]="!isCalculationAllowed(CALCULATION_TOTAL)">
                     Calcular puntuación total
                 </mat-radio-button>
-                <mat-radio-button [value]="CALCULATION_INDIVIDUAL" >
+                <mat-radio-button [value]="CALCULATION_INDIVIDUAL" [disabled]="!isCalculationAllowed(CALCULATION_INDIVIDUAL)">
                     Calcular puntuación de respuestas
                 </mat-radio-button>
             </mat-radio-group>

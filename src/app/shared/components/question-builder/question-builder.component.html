@@ -39,6 +39,7 @@
         <!-- [totalAnswers]="totalAnswers" -->
 	<exagen-score-calculator *ngIf="answer"
         [form]="score"
+        [allowedCalculations]="scoreCalculationForAnswer"
         (scoreCalculated)="onScoreCalculated($event)"
     ></exagen-score-calculator>
 </div>

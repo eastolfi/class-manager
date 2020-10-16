@@ -4,6 +4,7 @@ import { FormGroup } from '@angular/forms';
 import { IAnswer, AnswerType, ITitle, Title } from "../../models";
 import { AnswerFactory } from "../../factories/answer.factory";
 import { QuestionFactory } from '@app/shared/factories/question.factory';
+import { CalculationType } from '../score-calculator/score-calculator.component';
 
 export declare interface IQuestion {
 	id: number,
@@ -28,25 +29,36 @@ export class Question implements IQuestion {
 	styleUrls: ["./question-builder.component.scss"]
 })
 export class QuestionBuilderComponent implements OnInit {
-	@Input()
-	public form: FormGroup
+    @Input()
+    public form: FormGroup
 
-	public answerTypeOptions = [
-		// { value: null, label: "Elige el tipo de respuesta" },
-		{ value: AnswerType.SINGLE_CHOICE, label: "Una línea" },
-		{ value: AnswerType.MULTI_CHOICE, label: "Elección Múltiple" },
-		{ value: AnswerType.MULTI_LINE, label: "Varias líneas" }
-	]
+    public scoreCalculationForAnswer: CalculationType[] = [];
 
-	constructor(private readonly questionFactory: QuestionFactory, private readonly answerFactory: AnswerFactory) {
+    public answerTypeOptions = [
+        // { value: null, label: "Elige el tipo de respuesta" },
+        { value: AnswerType.SINGLE_CHOICE, label: "Una línea" },
+        { value: AnswerType.MULTI_CHOICE, label: "Elección Múltiple" },
+        { value: AnswerType.MULTI_LINE, label: "Varias líneas" }
+    ]
+
+    constructor(private readonly questionFactory: QuestionFactory, private readonly answerFactory: AnswerFactory) {
         this.initForm();
-	}
+    }
 
-	ngOnInit() {
+    ngOnInit() {
         this.form.get('answerType').valueChanges.subscribe((value: AnswerType) => {
-            this.form.get('score').reset();
             this.form.removeControl('answer');
+
             this.form.addControl('answer', this.answerFactory.createAnswerForm(value));
+            if (value === AnswerType.SINGLE_CHOICE || value === AnswerType.MULTI_LINE) {
+                this.scoreCalculationForAnswer = [CalculationType.SIMPLE];
+                this.form.get('score').patchValue({
+                    calculationType: CalculationType.SIMPLE
+                });
+            } else if (value === AnswerType.MULTI_CHOICE) {
+                this.scoreCalculationForAnswer = [CalculationType.SIMPLE, CalculationType.CALCULATE_TOTAL, CalculationType.CALCULATE_INDIVIDUAL];
+            }
+
             this.form.get('answer').valueChanges.subscribe(answer => {
                 const totalAnswers = answer.choices ? answer.choices.length : 1;
 
@@ -69,14 +81,6 @@ export class QuestionBuilderComponent implements OnInit {
         return this.form.get('score') as FormGroup;
     }
 
-    // public get totalAnswers(): number {
-    //     if (this.answer && this.isMultiChoiceAnswer) {
-    //         return this.answer.get('choices').value.length;
-    //     } else if (this.answer) {
-    //         return 1;
-    //     }
-    // }
-
     get isSingleChoiceAnswer() {
         return this.answer && this.answer.value.type === AnswerType.SINGLE_CHOICE;
     }
@@ -94,19 +98,6 @@ export class QuestionBuilderComponent implements OnInit {
             score: info.totalScore
         })
 	}
-
-	// public onAnswersUpdated(answer: IAnswer) {
-	// 	switch (answer.type) {
-	// 		case AnswerType.SINGLE_CHOICE:
-	// 			this.question.totalAnswers = 1
-	// 			break;
-	// 		case AnswerType.MULTI_CHOICE:
-	// 			this.question.totalAnswers = (answer.content as Set<IAnswer>).size
-	// 			break;
-	// 		default:
-	// 			this.question.totalAnswers = 0
-	// 	}
-	// }
 
 	private initForm(): void {
 		if (!this.form) {
