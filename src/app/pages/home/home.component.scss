@@ -1,0 +1,24 @@
+@import '~@angular/material/theming';
+
+.dashboard-card {
+    height: 200px;
+    width: 200px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 500ms ease;
+
+    &:hover {
+        @include mat-elevation(4);
+        background-color: #BB99EE;
+    }
+
+    &.disabled {
+        cursor: default;
+        pointer-events: none;
+        background-color: #DDDDDD;
+        font-style: italic;
+        @include mat-elevation(0);
+    }
+}
