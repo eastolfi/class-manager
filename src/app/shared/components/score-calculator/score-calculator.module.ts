@@ -1,11 +1,7 @@
 import { NgModule } from '@angular/core';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
 
-import { MatInputModule } from '@angular/material/input';
-import { MatIconModule } from '@angular/material/icon';
-import { MatRadioModule } from '@angular/material/radio';
+import { CoreModule } from '@app/core.module';
 
 import { ScoreCalculatorComponent } from './score-calculator.component';
 
@@ -15,11 +11,7 @@ import { ScoreCalculatorComponent } from './score-calculator.component';
     ],
     imports: [
         CommonModule,
-        BrowserAnimationsModule,
-        ReactiveFormsModule,
-        MatInputModule,
-        MatIconModule,
-        MatRadioModule
+        CoreModule,
     ],
     exports: [
         ScoreCalculatorComponent
