@@ -1,13 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
 
-import { MatInputModule } from '@angular/material/input';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
+import { CoreModule } from '@app/core.module';
+import { AnswerSimpleModule } from '@shared/components/answers/answer-simple/answer-simple.module';
 
 import { AnswerMultichoiceComponent } from './answer-multichoice.component';
-import { AnswerSimpleModule } from '../answer-simple/answer-simple.module';
 
 @NgModule({
     declarations: [
@@ -15,11 +12,8 @@ import { AnswerSimpleModule } from '../answer-simple/answer-simple.module';
     ],
     imports: [
         CommonModule,
-        ReactiveFormsModule,
-        MatInputModule,
-        MatIconModule,
-        MatButtonModule,
-        AnswerSimpleModule
+        CoreModule,
+        AnswerSimpleModule,
     ],
     exports: [
         AnswerMultichoiceComponent

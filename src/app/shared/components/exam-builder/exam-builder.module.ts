@@ -1,15 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
 
-import { MatInputModule } from '@angular/material/input';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCheckboxModule } from '@angular/material/checkbox';
+import { CoreModule } from '@app/core.module';
+import { ExamFactory } from '@app/shared/factories/exam.factory';
+import { QuestionBuilderModule } from '@shared/components/question-builder/question-builder.module';
 
 import { ExamBuilderComponent } from './exam-builder.component';
-import { QuestionBuilderModule } from '../question-builder/question-builder.module';
-import { ExamFactory } from '@app/shared/factories/exam.factory';
 
 @NgModule({
     declarations: [
@@ -17,11 +13,7 @@ import { ExamFactory } from '@app/shared/factories/exam.factory';
     ],
     imports: [
         CommonModule,
-        ReactiveFormsModule,
-        MatInputModule,
-        MatIconModule,
-        MatButtonModule,
-        MatCheckboxModule,
+        CoreModule,
         QuestionBuilderModule
     ],
     providers: [
