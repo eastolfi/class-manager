@@ -1,0 +1,9 @@
+<div class="row">
+    <div class="col-3" *ngFor="let item of dashboardItems">
+        <mat-card
+            class="dashboard-card"
+            [class.disabled]="!item.enabled"
+            [routerLink]="item.link"
+        >{{ item.label }}</mat-card>
+    </div>
+</div>

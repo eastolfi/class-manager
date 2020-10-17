@@ -4,6 +4,9 @@
     <mat-sidenav #sidenav mode="over" class="p-2">
         <mat-list>
             <mat-list-item>
+                <button mat-button mat-raised (click)="sidenav.close()" routerLink="/home">Home</button>
+            </mat-list-item>
+            <mat-list-item>
                 <button mat-button mat-raised (click)="sidenav.close()" routerLink="/exam-generator">Exam Generator</button>
             </mat-list-item>
         </mat-list>
@@ -14,7 +17,7 @@
             <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon" (click)="sidenav.toggle()">
                 <mat-icon>menu</mat-icon>
             </button>
-            <span>Class Manager</span>
+            <span><button mat-button mat-flat routerLink="home">Class Manager</button></span>
             <span class="spacer"></span>
             <!-- <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
                 <mat-icon>favorite</mat-icon>

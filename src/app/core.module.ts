@@ -10,6 +10,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
+import { MatCardModule } from '@angular/material/card';
 
 const MATERIAL_MODULES = [
     MatInputModule,
@@ -21,6 +22,7 @@ const MATERIAL_MODULES = [
     MatToolbarModule,
     MatSidenavModule,
     MatListModule,
+    MatCardModule,
 ]
 
 @NgModule({
