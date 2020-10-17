@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -9,6 +8,7 @@ import { ExamBuilderModule } from '@shared/components/exam-builder/exam-builder.
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { CoreModule } from './core.module';
 
 @NgModule({
     declarations: [
@@ -18,7 +18,7 @@ import { AppComponent } from './app.component';
         BrowserModule,
         BrowserAnimationsModule,
         HttpClientModule,
-        ReactiveFormsModule,
+        CoreModule,
         AppRoutingModule,
         ExamBuilderModule,
         AlertModule.forRoot()
