@@ -1,0 +1,86 @@
+<mat-menu #menu="matMenu" (closed)="onMenuClosed()">
+    <ng-container *ngIf="menuType === 'class-element'">
+        <button mat-menu-item (click)="rotateItem()">
+            <mat-icon>rotate_right</mat-icon>
+            <span>Girar</span>
+        </button>
+    </ng-container>
+    <ng-container *ngIf="menuType === 'student'">
+        <button mat-menu-item [matMenuTriggerFor]="vertebrates">
+            <mat-icon>palette</mat-icon>
+            <span>Color</span>
+        </button>
+        <button mat-menu-item (click)="editItem()">
+            <mat-icon>edit</mat-icon>
+            <span>Editar</span>
+        </button>
+        <button mat-menu-item (click)="deleteItem()">
+            <mat-icon>delete</mat-icon>
+            <span>Quitar</span>
+        </button>
+    </ng-container>
+</mat-menu>
+<mat-menu #vertebrates="matMenu">
+    <button mat-menu-item (click)="changeColor('red')">Rojo</button>
+    <button mat-menu-item (click)="changeColor('orange')">Naranja</button>
+    <button mat-menu-item (click)="changeColor('yellow')">Amarillo</button>
+    <button mat-menu-item (click)="changeColor('green')">Verde</button>
+    <button mat-menu-item (click)="changeColor('blue')">Azul</button>
+    <button mat-menu-item (click)="changeColor('none')">Ninguno</button>
+</mat-menu>
+<div class="container-fluid p-3" [formGroup]="form">
+    <div class="row">
+        <div class="col-3">
+            <mat-form-field appearance="fill">
+                <mat-label>Clases</mat-label>
+                <mat-select formControlName="classId">
+                    <mat-option [value]="defaultClassName.id">
+                        Añadir
+                    </mat-option>
+                    <mat-option *ngFor="let _class of classList$ | async" [value]="_class.id">
+                        {{ _class.name }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col-3">
+            <mat-form-field *ngIf="classIdControl.value !== -1">
+                <mat-label>Clase</mat-label>
+                <input matInput placeholder="Nombre" formControlName="className" (blur)="saveClass()" />
+            </mat-form-field>
+        </div>
+        <div class="col-3" *ngIf="isNewClass">
+            <button mat-raised-button color="warn">Borrar</button>
+        </div>
+        <!-- <div class="col-3">
+            <co-class-item [item]="{ label: 'asd', type: 'class-element' }"></co-class-item>
+        </div> -->
+    <mat-divider></mat-divider>
+    <div class="row" *ngIf="classElements.length || students.length">
+        <div class="col-3" *ngIf="classElements.length">
+            <co-class-item *ngFor="let classElement of classElements" [menu]="menu" [item]="classElement"></co-class-item>
+        </div>
+        <div class="col-4 offset-5 d-flex flex-column flex-wrap-reverse last-column" *ngIf="students.length">
+            <co-class-item *ngFor="let student of students" [menu]="menu" [item]="student"></co-class-item>
+        </div>
+    </div>
+    <!-- <button class="page-action" mat-fab color="primary" (click)="addStudent()"
+        aria-label="Example icon button with a delete icon">
+        <mat-icon>add</mat-icon>
+    </button> -->
+    <!-- <button class="page-action" style="bottom: 125px" mat-fab color="primary" (click)="resetPosition()"
+        aria-label="Example icon button with a delete icon">
+        <mat-icon>refresh</mat-icon>
+    </button> -->
+    <!-- <input id="triggerButton" class="triggerButton" type="checkbox">
+    <label for="triggerButton">X</label> -->
+    <!-- <div class="dial-item one" [class.open]="isOpen">1</div>
+    <div class="dial-item two" [class.open]="isOpen">2</div>
+    <div class="dial-item three" [class.open]="isOpen">3</div> -->
+    <!-- <button class="page-action dial-item one" [class.open]="isOpen" (click)="closeDial()" mat-fab color="primary" aria-label=""><mat-icon>sensor_door</mat-icon></button>
+    <button class="page-action dial-item two" [class.open]="isOpen" (click)="closeDial()" mat-fab color="primary" aria-label=""><mat-icon>group_add</mat-icon></button> -->
+         <!-- *ngIf="classIdControl.value !== -1 && classIdControl.value !== 99" -->
+    <co-fab-dial
+        [items]="dialItems"
+    ></co-fab-dial>
+</div>

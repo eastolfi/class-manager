@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
+import { ClassItem } from '@app/pages/class-layout/class-layout.component';
 import { BehaviorSubject } from 'rxjs';
-import { ClassItem } from 'src/app/app.component';
 
 @Injectable({
     providedIn: 'root'

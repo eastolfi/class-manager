@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
+import { ClassItem, IClass } from '@app/pages/class-layout/class-layout.component';
 import { combineLatest, from, merge, Observable, of } from 'rxjs';
 import { combineAll, concatAll, distinct, distinctUntilKeyChanged, map, mergeAll, mergeMap, toArray, zip, zipAll } from 'rxjs/operators';
-import { ClassItem, IClass } from 'src/app/app.component';
 
 export interface Position {
     x: number;

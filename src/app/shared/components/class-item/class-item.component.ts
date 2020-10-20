@@ -1,8 +1,8 @@
 import { CdkDragMove } from '@angular/cdk/drag-drop';
 import { Component, Input, OnInit } from '@angular/core';
 import { MatMenu } from '@angular/material/menu';
+import { ClassItem } from '@app/pages/class-layout/class-layout.component';
 import { BehaviorSubject, Subject } from 'rxjs';
-import { ClassItem } from 'src/app/app.component';
 import { MenuOpenerStateService } from '../../services/menu-opener-state.service';
 import { PersistenceService } from '../../services/persistence.service';
 import { ItemEditDialogComponent } from '../item-edit-dialog/item-edit-dialog.component';
