@@ -279,9 +279,9 @@ export class ClassLayoutComponent implements OnInit {
 
 
             var fileReader = new FileReader();
-            fileReader.onload = (fileLoadedEvent) => {
+            fileReader.onload = (fileLoadedEvent: ProgressEvent) => {
                 // check
-                const { id, name, classElements } = JSON.parse(fileLoadedEvent.target.result.toString());
+                const { id, name, classElements } = JSON.parse((fileLoadedEvent.target as FileReader).result.toString());
                 // console.log(textFromFileLoaded);
                 const classData: IClass = {
                     id,
