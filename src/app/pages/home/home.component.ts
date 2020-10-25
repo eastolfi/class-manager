@@ -19,7 +19,7 @@ export class HomeComponent implements OnInit {
     ngOnInit() {
         this.dashboardItems = [
             { label: 'Exam Generator', link: '/exam-generator', enabled: true },
-            { label: 'Class Layout', link: '/', enabled: false },
+            { label: 'Class Layout', link: '/class-layout', enabled: true },
         ]
     }
 
