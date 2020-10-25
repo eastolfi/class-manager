@@ -1,0 +1,46 @@
+{
+	"navigation": {
+		"home": "Home",
+		"language": {
+			"english": "English",
+			"french": "French",
+			"select": "Language",
+			"spanish": "Spanish"
+		},
+		"menu": {
+			"class-layout": "Class layout",
+			"exam-generator": "Exam generator"
+		}
+	},
+	"pages": {
+		"class-layout": {
+			"actions": {
+				"color": "Color",
+				"delete": "Delete",
+				"edit": "Edit",
+				"rotate": "Rotate"
+			},
+			"classes": {
+				"add": "Add",
+				"class-name": "Class Name",
+				"delete": "Delete",
+				"list": "Classes"
+			},
+			"colors": {
+				"blue": "Blue",
+				"green": "Green",
+				"none": "None",
+				"orange": "Orange",
+				"red": "Red",
+				"yellow": "Yellow"
+			}
+		},
+		"exam-generator": {
+			"answers": {
+				"add": "Add answer",
+				"content": "Answer content",
+				"delete": "Delete answer"
+			}
+		}
+	}
+}

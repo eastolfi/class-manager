@@ -1,0 +1,46 @@
+{
+	"navigation": {
+		"home": "Inicio",
+		"language": {
+			"english": "Inglés",
+			"french": "Francés",
+			"select": "Idioma",
+			"spanish": "Español"
+		},
+		"menu": {
+			"class-layout": "Disposición de clase",
+			"exam-generator": "Generador de examen"
+		}
+	},
+	"pages": {
+		"class-layout": {
+			"actions": {
+				"color": "Color",
+				"delete": "Borrar",
+				"edit": "Editar",
+				"rotate": "Girar"
+			},
+			"classes": {
+				"add": "Añadir",
+				"class-name": "Nombre de Clase",
+				"delete": "Borrar",
+				"list": "Clases"
+			},
+			"colors": {
+				"blue": "Azul",
+				"green": "Verde",
+				"none": "Ninguno",
+				"orange": "Naranja",
+				"red": "Rojo",
+				"yellow": "Amarillo"
+			}
+		},
+		"exam-generator": {
+			"answers": {
+				"add": "Añadir respuesta",
+				"content": "Contenido de la respuesta",
+				"delete": "Borrar respuesta"
+			}
+		}
+	}
+}

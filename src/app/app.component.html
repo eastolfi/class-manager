@@ -4,22 +4,35 @@
     <mat-sidenav #sidenav mode="over" class="p-2">
         <mat-list>
             <mat-list-item>
-                <button mat-button mat-raised (click)="sidenav.close()" routerLink="/home">Home</button>
+                <button mat-button mat-raised (click)="sidenav.close()" routerLink="/home">{{ 'navigation.home' | translate }}</button>
             </mat-list-item>
             <mat-list-item>
-                <button mat-button mat-raised (click)="sidenav.close()" routerLink="/exam-generator">Exam Generator</button>
-                <button mat-button mat-raised (click)="sidenav.close()" routerLink="/class-layout">Class Layout</button>
+                <button mat-button mat-raised (click)="sidenav.close()" routerLink="/exam-generator">{{ 'navigation.menu.exam-generator' | translate }}</button>
+            </mat-list-item>
+            <mat-list-item>
+                <button mat-button mat-raised (click)="sidenav.close()" routerLink="/class-layout">{{ 'navigation.menu.class-layout' | translate }}</button>
             </mat-list-item>
         </mat-list>
     </mat-sidenav>
+
+    <mat-menu #languageMenu="matMenu">
+        <button *ngFor="let lang of languages" mat-menu-item (click)="switchLanguage(lang.code)">
+            <exagen-flag-icon [code]="lang.icon"></exagen-flag-icon>
+            <span class="ml-1">{{ lang.label | translate }}</span>
+        </button>
+    </mat-menu>
 
     <mat-sidenav-content>
         <mat-toolbar>
             <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon" (click)="sidenav.toggle()">
                 <mat-icon>menu</mat-icon>
             </button>
-            <span><button mat-button mat-flat routerLink="home">Home</button></span>
+            <span><button mat-button mat-flat routerLink="home">{{ 'navigation.home' | translate }}</button></span>
             <span class="spacer"></span>
+            <span><button mat-button mat-flat [matMenuTriggerFor]="languageMenu">
+                <exagen-flag-icon [code]="currentLang"></exagen-flag-icon>
+                <span class="ml-1">{{ 'navigation.language.select' | translate }}</span>
+            </button></span>
             <!-- <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
                 <mat-icon>favorite</mat-icon>
             </button>
