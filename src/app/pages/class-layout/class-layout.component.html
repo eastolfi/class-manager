@@ -2,40 +2,40 @@
     <ng-container *ngIf="menuType === 'class-element'">
         <button mat-menu-item (click)="rotateItem()">
             <mat-icon>rotate_right</mat-icon>
-            <span>Girar</span>
+            <span>{{ 'pages.class-layout.actions.rotate' | translate }}</span>
         </button>
     </ng-container>
     <ng-container *ngIf="menuType === 'student'">
         <button mat-menu-item [matMenuTriggerFor]="vertebrates">
             <mat-icon>palette</mat-icon>
-            <span>Color</span>
+            <span>{{ 'pages.class-layout.actions.color' | translate }}</span>
         </button>
         <button mat-menu-item (click)="editItem()">
             <mat-icon>edit</mat-icon>
-            <span>Editar</span>
+            <span>{{ 'pages.class-layout.actions.edit' | translate }}</span>
         </button>
         <button mat-menu-item (click)="deleteItem()">
             <mat-icon>delete</mat-icon>
-            <span>Quitar</span>
+            <span>{{ 'pages.class-layout.actions.delete' | translate }}</span>
         </button>
     </ng-container>
 </mat-menu>
 <mat-menu #vertebrates="matMenu">
-    <button mat-menu-item (click)="changeColor('red')">Rojo</button>
-    <button mat-menu-item (click)="changeColor('orange')">Naranja</button>
-    <button mat-menu-item (click)="changeColor('yellow')">Amarillo</button>
-    <button mat-menu-item (click)="changeColor('green')">Verde</button>
-    <button mat-menu-item (click)="changeColor('blue')">Azul</button>
-    <button mat-menu-item (click)="changeColor('none')">Ninguno</button>
+    <button mat-menu-item (click)="changeColor('red')">{{ 'pages.class-layout.colors.red' | translate }}</button>
+    <button mat-menu-item (click)="changeColor('orange')">{{ 'pages.class-layout.colors.orange' | translate }}</button>
+    <button mat-menu-item (click)="changeColor('yellow')">{{ 'pages.class-layout.colors.yellow' | translate }}</button>
+    <button mat-menu-item (click)="changeColor('green')">{{ 'pages.class-layout.colors.green' | translate }}</button>
+    <button mat-menu-item (click)="changeColor('blue')">{{ 'pages.class-layout.colors.blue' | translate }}</button>
+    <button mat-menu-item (click)="changeColor('none')">{{ 'pages.class-layout.colors.none' | translate }}</button>
 </mat-menu>
 <div class="container-fluid p-3" [formGroup]="form">
     <div class="row">
         <div class="col-3">
             <mat-form-field appearance="fill">
-                <mat-label>Clases</mat-label>
+                <mat-label>{{ 'pages.class-layout.classes.list' | translate }}</mat-label>
                 <mat-select formControlName="classId">
                     <mat-option [value]="defaultClassName.id">
-                        Añadir
+                        {{ 'pages.class-layout.classes.add' | translate }}
                     </mat-option>
                     <mat-option *ngFor="let _class of classList$ | async" [value]="_class.id">
                         {{ _class.name }}
@@ -45,12 +45,12 @@
         </div>
         <div class="col-3">
             <mat-form-field *ngIf="classIdControl.value !== -1">
-                <mat-label>Clase</mat-label>
+                <mat-label>{{ 'pages.class-layout.classes.class-name' | translate }}</mat-label>
                 <input matInput placeholder="Nombre" formControlName="className" (blur)="saveClass()" />
             </mat-form-field>
         </div>
         <div class="col-3" *ngIf="isNewClass">
-            <button mat-raised-button color="warn">Borrar</button>
+            <button mat-raised-button color="warn">{{ 'pages.class-layout.classes.delete' | translate }}</button>
         </div>
         <!-- <div class="col-3">
             <co-class-item [item]="{ label: 'asd', type: 'class-element' }"></co-class-item>

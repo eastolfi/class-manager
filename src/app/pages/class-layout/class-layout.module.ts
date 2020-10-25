@@ -15,6 +15,8 @@ import { FabDialComponent } from '@app/shared/components/fab-dial/fab-dial.compo
 import { ItemEditDialogComponent } from '@shared/components/item-edit-dialog/item-edit-dialog.component';
 import { ClassItemComponent } from '@app/shared/components/class-item/class-item.component';
 import { MatButtonModule } from '@angular/material/button';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { CoreModule } from '@app/core.module';
 
 @NgModule({
     declarations: [
@@ -25,14 +27,7 @@ import { MatButtonModule } from '@angular/material/button';
     ],
     imports: [
         CommonModule,
-        ReactiveFormsModule,
-        MatInputModule,
-        MatButtonModule,
-        MatIconModule,
-        MatMenuModule,
-        MatSelectModule,
-        MatDividerModule,
-        MatDialogModule,
+        CoreModule,
         ClassLayoutRoutingModule
     ]
 })

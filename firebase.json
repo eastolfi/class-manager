@@ -1,28 +1,52 @@
 {
-  "hosting": [
-    {
-      "target": "class-organizer",
-      "public": "dist/class-organizer",
-      "ignore": [
-        "**/.*"
-      ],
-      "headers": [
+    "hosting": [
         {
-          "source": "*.[0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f].+(css|js)",
-          "headers": [
-            {
-              "key": "Cache-Control",
-              "value": "public,max-age=31536000,immutable"
-            }
-          ]
-        }
-      ],
-      "rewrites": [
+            "target": "exam-generator",
+            "public": "dist/exam-generator",
+            "ignore": [
+                "**/.*"
+            ],
+            "headers": [
+                {
+                    "source": "*.[0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f].+(css|js)",
+                    "headers": [
+                        {
+                            "key": "Cache-Control",
+                            "value": "public,max-age=31536000,immutable"
+                        }
+                    ]
+                }
+            ],
+            "rewrites": [
+                {
+                    "source": "**",
+                    "destination": "/index.html"
+                }
+            ]
+        },
         {
-          "source": "**",
-          "destination": "/index.html"
+            "target": "test",
+            "public": "dist/exam-generator/es",
+            "ignore": [
+                "**/.*"
+            ],
+            "headers": [
+                {
+                    "source": "*.[0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f].+(css|js)",
+                    "headers": [
+                        {
+                            "key": "Cache-Control",
+                            "value": "public,max-age=31536000,immutable"
+                        }
+                    ]
+                }
+            ],
+            "rewrites": [
+                {
+                    "source": "**",
+                    "destination": "/index.html"
+                }
+            ]
         }
-      ]
-    }
-  ]
+    ]
 }

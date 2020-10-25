@@ -2,10 +2,16 @@
   "targets": {
     "class-organizer-9619f": {
       "hosting": {
-        "class-organizer": [
+        "exam-generator": [
           "class-organizer-9619f"
+        ],
+        "test": [
+          "test-aa75e"
         ]
       }
     }
+  },
+  "projects": {
+    "default": "class-organizer-9619f"
   }
 }
