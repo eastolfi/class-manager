@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
-import { Alert } from './alert';
+import { Alert, AlertAction } from './alert';
 
 @Injectable(/*{
 	providedIn: 'root'
 }*/)
 export class AlertService {
 
-	constructor() { }
+    constructor() { }
 
-	show: (alert: Alert|string) => void;
-	showSuccess: (message: string) => void;
-	showWarning: (message: string) => void;
-	showError: (message: string) => void;
-	hide: (alert: Alert|number) => void;
+    show: (alert: Alert | string, action?: AlertAction) => void;
+    showSuccess: (message: string, action?: AlertAction) => void;
+    showWarning: (message: string, action?: AlertAction) => void;
+    showError: (message: string, action?: AlertAction) => void;
+    hide: (alert: Alert | number) => void;
 }
