@@ -1,9 +1,8 @@
-<div class="row">
-    <div class="col-3" *ngFor="let item of dashboardItems">
-        <mat-card
-            class="dashboard-card"
-            [class.disabled]="!item.enabled"
-            [routerLink]="item.link"
-        >{{ item.label | translate }}</mat-card>
-    </div>
+<div class="row justify-content-around">
+    <mat-card
+        *ngFor="let item of dashboardItems"
+        class="dashboard-card mb-3"
+        [class.disabled]="!item.enabled"
+        [routerLink]="item.link"
+    >{{ item.label | translate }}</mat-card>
 </div>
