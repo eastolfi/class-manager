@@ -8,7 +8,7 @@ interface Language {
 }
 
 @Component({
-    selector: "exagen-root",
+    selector: "cm-root",
     templateUrl: "./app.component.html",
     styleUrls: ["./app.component.scss"]
 })

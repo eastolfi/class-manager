@@ -2,7 +2,7 @@
   "targets": {
     "class-organizer-9619f": {
       "hosting": {
-        "exam-generator": [
+        "class-manager": [
           "class-organizer-9619f"
         ],
         "test": [

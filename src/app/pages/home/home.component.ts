@@ -7,7 +7,7 @@ interface DashboardItem {
 }
 
 @Component({
-    selector: 'exagen-home',
+    selector: 'cm-home',
     templateUrl: './home.component.html',
     styleUrls: ['./home.component.scss']
 })

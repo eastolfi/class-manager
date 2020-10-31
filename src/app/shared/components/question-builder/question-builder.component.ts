@@ -24,7 +24,7 @@ export class Question implements IQuestion {
 }
 
 @Component({
-	selector: "exagen-question-builder",
+	selector: "cm-question-builder",
 	templateUrl: "./question-builder.component.html",
 	styleUrls: ["./question-builder.component.scss"]
 })

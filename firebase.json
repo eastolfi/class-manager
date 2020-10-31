@@ -1,8 +1,8 @@
 {
     "hosting": [
         {
-            "target": "exam-generator",
-            "public": "dist/exam-generator",
+            "target": "class-manager",
+            "public": "dist/class-manager",
             "ignore": [
                 "**/.*"
             ],
@@ -26,7 +26,7 @@
         },
         {
             "target": "test",
-            "public": "dist/exam-generator/es",
+            "public": "dist/class-manager/es",
             "ignore": [
                 "**/.*"
             ],

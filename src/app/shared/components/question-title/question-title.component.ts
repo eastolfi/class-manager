@@ -5,7 +5,7 @@ import { Title } from "../../models/implementations/title";
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 
 @Component({
-	selector: "exagen-question-title",
+	selector: "cm-question-title",
 	templateUrl: "./question-title.component.html",
 	styleUrls: ["./question-title.component.scss"]
 })

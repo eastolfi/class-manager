@@ -25,7 +25,7 @@
     <div class="row mt-3">
         <div class="col-12">
             <div *ngFor="let _ of questions.controls; let i = index" formArrayName="questions">
-                <exagen-question-builder [form]="questions.controls[i]"></exagen-question-builder>
+                <cm-question-builder [form]="questions.controls[i]"></cm-question-builder>
             </div>
         </div>
     </div>
