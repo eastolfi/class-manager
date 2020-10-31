@@ -15,7 +15,7 @@ export declare interface IExam {
 }
 
 @Component({
-	selector: "exagen-exam-builder",
+	selector: "cm-exam-builder",
 	templateUrl: "./exam-builder.component.html",
 	styleUrls: ["./exam-builder.component.scss"]
 })

@@ -7,7 +7,7 @@ export const enum CalculationType {
 }
 
 @Component({
-    selector: "exagen-score-calculator",
+    selector: "cm-score-calculator",
     templateUrl: "./score-calculator.component.html",
     styleUrls: ["./score-calculator.component.scss"]
 })

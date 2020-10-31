@@ -4,7 +4,7 @@ import { AnswerFactory } from '@app/shared/factories/answer.factory';
 import { AnswerType } from '@app/shared/models';
 
 @Component({
-	selector: "exagen-answer-multiline",
+	selector: "cm-answer-multiline",
 	templateUrl: "./answer-multiline.component.html",
 	styleUrls: ["./answer-multiline.component.scss"]
 })

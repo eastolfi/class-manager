@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-    selector: 'exagen-exam-generator',
+    selector: 'cm-exam-generator',
     templateUrl: './exam-generator.component.html',
     styleUrls: ['./exam-generator.component.scss']
 })

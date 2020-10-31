@@ -3,7 +3,7 @@
 <div [formGroup]="form">
     <div class="row">
         <div class="col-12">
-            <exagen-question-title [form]="questionTitle"></exagen-question-title>
+            <cm-question-title [form]="questionTitle"></cm-question-title>
         </div>
     </div>
 
@@ -22,24 +22,24 @@
 
 	<!-- Single Choice -->
     <ng-container *ngIf="isSingleChoiceAnswer">
-        <exagen-answer-simple [form]="answer"></exagen-answer-simple>
+        <cm-answer-simple [form]="answer"></cm-answer-simple>
     </ng-container>
 
 	<!-- Multi Choice -->
     <ng-container *ngIf="isMultiChoiceAnswer">
-        <exagen-answer-multichoice [form]="answer"></exagen-answer-multichoice>
+        <cm-answer-multichoice [form]="answer"></cm-answer-multichoice>
     </ng-container>
 
     <ng-container *ngIf="isMultiLineAnswer">
-		<exagen-answer-multiline [form]="answer"></exagen-answer-multiline>
+		<cm-answer-multiline [form]="answer"></cm-answer-multiline>
 	</ng-container>
 
      <!-- (scoreCalculated)="onScoreCalculated($event)" -->
         <!-- (toggleScore)="" -->
         <!-- [totalAnswers]="totalAnswers" -->
-	<exagen-score-calculator *ngIf="answer"
+	<cm-score-calculator *ngIf="answer"
         [form]="score"
         [allowedCalculations]="scoreCalculationForAnswer"
         (scoreCalculated)="onScoreCalculated($event)"
-    ></exagen-score-calculator>
+    ></cm-score-calculator>
 </div>

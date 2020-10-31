@@ -3,11 +3,11 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "exam-generator": {
+    "class-manager": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
-      "prefix": "exagen",
+      "prefix": "cm",
       "schematics": {
         "@schematics/angular:component": {
           "style": "scss"
@@ -18,7 +18,7 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "aot": true,
-            "outputPath": "dist/exam-generator",
+            "outputPath": "dist/class-manager",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -87,7 +87,7 @@
               "vendorChunk": false,
               "buildOptimizer": true,
               "baseHref": "/es/",
-              "outputPath": "dist/exam-generator/es",
+              "outputPath": "dist/class-manager/es",
               "i18nFile": "src/locale/messages.es.xlf",
               "i18nFormat": "xlf",
               "i18nLocale": "es",
@@ -98,21 +98,21 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "exam-generator:build"
+            "browserTarget": "class-manager:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "exam-generator:build:production"
+              "browserTarget": "class-manager:build:production"
             },
             "es": {
-              "browserTarget": "exam-generator:build:production-es"
+              "browserTarget": "class-manager:build:production-es"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "exam-generator:build"
+            "browserTarget": "class-manager:build"
           }
         },
         "i18n": {
@@ -167,7 +167,7 @@
         }
       }
     },
-    "exam-generator-e2e": {
+    "class-manager-e2e": {
       "root": "e2e/",
       "projectType": "application",
       "prefix": "",
@@ -176,11 +176,11 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "exam-generator:serve"
+            "devServerTarget": "class-manager:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "exam-generator:serve:production"
+              "devServerTarget": "class-manager:serve:production"
             }
           }
         },
@@ -196,5 +196,5 @@
       }
     }
   },
-  "defaultProject": "exam-generator"
+  "defaultProject": "class-manager"
 }

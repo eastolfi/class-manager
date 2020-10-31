@@ -1,4 +1,4 @@
-<exagen-alert></exagen-alert>
+<cm-alert></cm-alert>
 
 <mat-sidenav-container class="main-sidenav">
     <mat-sidenav #sidenav mode="over" class="p-2">
@@ -17,7 +17,7 @@
 
     <mat-menu #languageMenu="matMenu">
         <button *ngFor="let lang of languages" mat-menu-item (click)="switchLanguage(lang.code)">
-            <exagen-flag-icon [code]="lang.icon"></exagen-flag-icon>
+            <cm-flag-icon [code]="lang.icon"></cm-flag-icon>
             <span class="ml-1">{{ lang.label | translate }}</span>
         </button>
     </mat-menu>
@@ -30,7 +30,7 @@
             <span><button mat-button mat-flat routerLink="home">{{ 'navigation.home' | translate }}</button></span>
             <span class="spacer"></span>
             <span><button mat-button mat-flat [matMenuTriggerFor]="languageMenu">
-                <exagen-flag-icon [code]="currentLang"></exagen-flag-icon>
+                <cm-flag-icon [code]="currentLang"></cm-flag-icon>
                 <span class="ml-1">{{ 'navigation.language.select' | translate }}</span>
             </button></span>
             <!-- <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">

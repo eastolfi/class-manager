@@ -10,7 +10,7 @@ export interface AnswerSimple {
 }
 
 @Component({
-    selector: 'exagen-answer-simple',
+    selector: 'cm-answer-simple',
     templateUrl: './answer-simple.component.html',
     styleUrls: ['./answer-simple.component.scss']
 })

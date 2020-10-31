@@ -4,7 +4,7 @@ import { Alert, AlertType } from './alert';
 import { AlertService } from './alert.service';
 
 @Component({
-	selector: 'exagen-alert',
+	selector: 'cm-alert',
 	templateUrl: './alert.component.html',
 	styleUrls: ['./alert.component.scss']
 })

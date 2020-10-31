@@ -5,7 +5,7 @@ import { FormGroup, FormArray, FormControl, FormBuilder } from '@angular/forms';
 import { AnswerSimple } from "../answer-simple/answer-simple.component";
 
 @Component({
-	selector: "exagen-answer-multichoice",
+	selector: "cm-answer-multichoice",
 	templateUrl: "./answer-multichoice.component.html",
 	styleUrls: ["./answer-multichoice.component.scss"]
 })

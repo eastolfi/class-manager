@@ -1,7 +1,7 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 
 @Component({
-    selector: 'exagen-flag-icon',
+    selector: 'cm-flag-icon',
     templateUrl: './flag-icon.component.html',
     styleUrls: ['./flag-icon.component.scss']
 })
