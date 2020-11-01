@@ -19,7 +19,8 @@ export class QuestionFactory {
                 totalScore: [0],
                 scorePerAnswer: [0],
                 totalAnswers: [0]
-            })
+            }),
+            answer: this.fb.group({})
         });
     }
 }
