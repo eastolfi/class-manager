@@ -2,16 +2,19 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { FlagIconComponent } from './flag-icon/flag-icon.component';
+import { SplashScreenComponent } from './splash-screen/splash-screen.component';
 
 @NgModule({
     declarations: [
-        FlagIconComponent
+        FlagIconComponent,
+        SplashScreenComponent
     ],
     imports: [
         CommonModule
     ],
     exports: [
-        FlagIconComponent
+        FlagIconComponent,
+        SplashScreenComponent
     ]
 })
 export class ComponentsModule { }
