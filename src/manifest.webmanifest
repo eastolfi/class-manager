@@ -1,7 +1,7 @@
 {
-    "name": "class-manager",
-    "short_name": "class-manager",
-    "theme_color": "#1976d2",
+    "name": "Class Manager",
+    "short_name": "Class Manager",
+    "theme_color": "#00aba9",
     "background_color": "#fafafa",
     "display": "standalone",
     "scope": "./",
