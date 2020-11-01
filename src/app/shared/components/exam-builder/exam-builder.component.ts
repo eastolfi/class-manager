@@ -41,7 +41,7 @@ export class ExamBuilderComponent {
 	}
 
 	public generateExam(): void {
-		this.generator.generateExam(this.form.value).subscribe((result: { done: boolean, message: string }) => {
+		this.generator.downloadExam(this.form.value).subscribe((result: { done: boolean, message: string }) => {
 			if (result.done) {
 				this.alertService.showSuccess(result.message)
 			} else {
