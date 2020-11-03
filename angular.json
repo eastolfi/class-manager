@@ -34,6 +34,7 @@
               "node_modules/@fortawesome/fontawesome-free/scss/regular.scss",
               "node_modules/@fortawesome/fontawesome-free/scss/brands.scss",
               "node_modules/flag-icon-css/css/flag-icon.min.css",
+              "src/theme.scss",
               "src/styles.scss"
             ],
             "scripts": [
@@ -138,6 +139,7 @@
               "node_modules/@fortawesome/fontawesome-free/scss/regular.scss",
               "node_modules/@fortawesome/fontawesome-free/scss/brands.scss",
               "node_modules/flag-icon-css/css/flag-icon.min.css",
+              "src/theme.scss",
               "src/styles.scss"
             ],
             "scripts": [
