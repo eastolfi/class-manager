@@ -4,7 +4,7 @@
         cdkDrag
         (cdkDragMoved)="onDrag(item, $event)"
         (cdkDragReleased)="onDragReleased(item)"
-        [cdkDragFreeDragPosition]="item.lastKnownPosition"
+        [cdkDragFreeDragPosition]="item.position"
     >
         <span>{{ item.label }}</span>
         <button *ngIf="menu" class="action" mat-icon-button (click)="onMenuOpened(item)"
@@ -20,7 +20,7 @@
         (dblclick)="setOpenerAndEdit(item)"
         (cdkDragMoved)="onDrag(item, $event)"
         (cdkDragReleased)="onDragReleased(item)"
-        [cdkDragFreeDragPosition]="item.lastKnownPosition"
+        [cdkDragFreeDragPosition]="item.position"
     >
         <span>{{ item.label }}</span>
 

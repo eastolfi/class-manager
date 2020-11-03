@@ -28,42 +28,39 @@
     <button mat-menu-item (click)="changeColor('blue')">{{ 'pages.class-layout.colors.blue' | translate }}</button>
     <button mat-menu-item (click)="changeColor('none')">{{ 'pages.class-layout.colors.none' | translate }}</button>
 </mat-menu>
+
 <div class="container-fluid p-3" [formGroup]="form">
     <div class="row">
-        <div class="col-3">
-            <mat-form-field appearance="fill">
+        <div class="col-12 col-md-4">
+            <mat-form-field class="w-100" appearance="fill">
                 <mat-label>{{ 'pages.class-layout.classes.list' | translate }}</mat-label>
                 <mat-select formControlName="classId">
                     <mat-option [value]="defaultClassName.id">
                         {{ 'pages.class-layout.classes.add' | translate }}
                     </mat-option>
-                    <mat-option *ngFor="let _class of classList$ | async" [value]="_class.id">
+                    <mat-option *ngFor="let _class of classNameList$ | async" [value]="_class.id">
                         {{ _class.name }}
                     </mat-option>
                 </mat-select>
             </mat-form-field>
         </div>
-        <div class="col-3">
-            <mat-form-field *ngIf="classIdControl.value !== -1">
+
+        <div class="col-9 col-md-6">
+            <mat-form-field class="w-100" *ngIf="classIdControl.value !== -1">
                 <mat-label>{{ 'pages.class-layout.classes.class-name' | translate }}</mat-label>
-                <input matInput placeholder="Nombre" formControlName="className" (blur)="saveClass()" />
+                <input matInput placeholder="Nombre" formControlName="className" (blur)="saveClass()" required />
             </mat-form-field>
         </div>
-        <div class="col-3" *ngIf="isNewClass">
-            <button mat-raised-button color="warn">{{ 'pages.class-layout.classes.delete' | translate }}</button>
+
+        <div class="col-2" *ngIf="isNewClass">
+            <button mat-raised-button color="warn" (click)="deleteClass()"><mat-icon>delete</mat-icon></button>
         </div>
         <!-- <div class="col-3">
             <co-class-item [item]="{ label: 'asd', type: 'class-element' }"></co-class-item>
         </div> -->
-    <mat-divider></mat-divider>
-    <div class="row" *ngIf="classElements.length || students.length">
-        <div class="col-3" *ngIf="classElements.length">
-            <co-class-item *ngFor="let classElement of classElements" [menu]="menu" [item]="classElement"></co-class-item>
-        </div>
-        <div class="col-4 offset-5 d-flex flex-column flex-wrap-reverse last-column" *ngIf="students.length">
-            <co-class-item *ngFor="let student of students" [menu]="menu" [item]="student"></co-class-item>
-        </div>
+        <mat-divider></mat-divider>
     </div>
+
     <!-- <button class="page-action" mat-fab color="primary" (click)="addStudent()"
         aria-label="Example icon button with a delete icon">
         <mat-icon>add</mat-icon>
@@ -80,7 +77,18 @@
     <!-- <button class="page-action dial-item one" [class.open]="isOpen" (click)="closeDial()" mat-fab color="primary" aria-label=""><mat-icon>sensor_door</mat-icon></button>
     <button class="page-action dial-item two" [class.open]="isOpen" (click)="closeDial()" mat-fab color="primary" aria-label=""><mat-icon>group_add</mat-icon></button> -->
          <!-- *ngIf="classIdControl.value !== -1 && classIdControl.value !== 99" -->
-    <co-fab-dial
-        [items]="dialItems"
-    ></co-fab-dial>
 </div>
+
+<ng-container *ngIf="classElements.length || students.length">
+    <ng-container *ngIf="classElements.length">
+        <co-class-item class="class-item class-element" *ngFor="let classElement of classElements" [menu]="menu" [item]="classElement"></co-class-item>
+    </ng-container>
+
+    <ng-container *ngIf="students.length">
+        <co-class-item class="class-item class-student" *ngFor="let student of students" [menu]="menu" [item]="student"></co-class-item>
+    </ng-container>
+</ng-container>
+
+<co-fab-dial
+    [items]="dialItems"
+></co-fab-dial>

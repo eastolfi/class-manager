@@ -28,7 +28,7 @@ export class DomService {
         });
     }
 
-    private downloadBlob(blob, fileName) {
+    public downloadBlob(blob, fileName) {
         const link = this.createElement('a') as HTMLAnchorElement;
         const url = this.sanitizer.bypassSecurityTrustResourceUrl(URL.createObjectURL(blob));
 

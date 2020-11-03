@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ClassItem, IClass } from '@app/pages/class-layout/class-layout.component';
-import { combineLatest, from, merge, Observable, of } from 'rxjs';
-import { combineAll, concatAll, distinct, distinctUntilKeyChanged, map, mergeAll, mergeMap, toArray, zip, zipAll } from 'rxjs/operators';
+import { combineLatest, from, merge, Observable, Observer, of, Subject } from 'rxjs';
+import { combineAll, concatAll, distinct, distinctUntilKeyChanged, filter, map, mergeAll, mergeMap, toArray, zip, zipAll } from 'rxjs/operators';
 
 export interface Position {
     x: number;
@@ -20,6 +20,7 @@ export interface IClassName {
     providedIn: 'root'
 })
 export class PersistenceService {
+    public saveRequestSubject = new Subject<void>();
 
     private storageKey = 'item-positions';
 
@@ -43,6 +44,26 @@ export class PersistenceService {
             console.log(items);
             localStorage.setItem('classes', JSON.stringify(items));
         });
+    }
+
+    public requestSave(): void {
+        this.saveRequestSubject.next();
+    }
+
+    public deleteClass(classId: number): Observable<void> {
+        return new Observable((observer: Observer<void>) => {
+            this.getClasses().pipe(
+                filter((savedClass: IClass) => savedClass.id !== classId),
+                toArray()
+            )
+            .subscribe((items: IClass[]) => {
+                console.log(items);
+                localStorage.setItem('classes', JSON.stringify(items));
+
+                observer.next();
+                observer.complete();
+            });
+        })
     }
 
     public getClasses(): Observable<IClass> {
