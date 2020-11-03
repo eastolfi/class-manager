@@ -26,7 +26,7 @@ export class ServiceWorkerService implements OnInit, OnDestroy {
     }
 
     private notifyNewVersion(): void {
-        this.alertService.showSuccess('asdasdasd', {
+        this.alertService.showSuccess('A new version is available.', {
             label: 'Reload',
             fn: () => {
                 this.updates.activateUpdate().then(() => window.location.reload());

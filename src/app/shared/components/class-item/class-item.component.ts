@@ -1,5 +1,5 @@
 import { CdkDragMove } from '@angular/cdk/drag-drop';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { MatMenu } from '@angular/material/menu';
 import { ClassItem } from '@app/pages/class-layout/class-layout.component';
 import { BehaviorSubject, Subject } from 'rxjs';
@@ -12,7 +12,7 @@ import { ItemEditDialogComponent } from '../item-edit-dialog/item-edit-dialog.co
     templateUrl: './class-item.component.html',
     styleUrls: ['./class-item.component.scss']
 })
-export class ClassItemComponent implements OnInit {
+export class ClassItemComponent implements OnInit, OnDestroy {
     @Input()
     public item: ClassItem;
 
@@ -32,6 +32,10 @@ export class ClassItemComponent implements OnInit {
         // this.menuOpenerSubject.subscribe((item: ClassItem) => {
         //     this.currentItem = item;
         // });
+    }
+
+    ngOnDestroy(): void {
+        this.menuOpenerState.update(null);
     }
 
 
@@ -65,6 +69,8 @@ export class ClassItemComponent implements OnInit {
         const positions = this.currentDragTransform.replace('translate3d', '').match(/([-]*\d)+/g);
         // // item.lastKnownPosition = { x: parseInt(positions[0]), y: parseInt(positions[1]) }
         item.position = { x: parseInt(positions[0]), y: parseInt(positions[1]) };
+
+        this.persistanceService.requestSave();
         // this.persistanceService.saveItemPosition({ id: item.id, position: { x: parseInt(positions[0]), y: parseInt(positions[1]) } });
 
         // const itemPositions: any[] = JSON.parse(localStorage.getItem('item-positions')) || [];
