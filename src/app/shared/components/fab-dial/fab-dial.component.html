@@ -16,15 +16,16 @@
 </button> -->
 <button *ngFor="let item of items"
     aria-label=""
+    mat-fab
+    color="primary"
     class="dial-item"
+    [disabled]="item.disabled"
     [class.open]="isOpen"
     [style.transform]="'translateX(' + item.translateX + 'px) translateY(' + item.translateY + 'px)'"
-    mat-fab
-    color="accent"
     (click)="item.onClick()">
     <mat-icon>{{ item.icon }}</mat-icon>
 </button>
 
-<button class="dial" [class.open]="isOpen" (click)="toggleDial()" mat-fab color="primary" aria-label="Fab Button">
+<button class="dial" [class.open]="isOpen" (click)="toggleDial()" mat-fab color="primary" aria-label="Fab Button" [disabled]="disabled">
     <mat-icon>add</mat-icon>
 </button>
