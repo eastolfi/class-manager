@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 
-const ANGLE_90 = 90;
+const ANGLE_RANGE = 175;
+const ANGLE_OFFSET = 205;
+const RADIUS = 100;
 
 export interface DialItem {
     icon: string;
@@ -37,13 +39,17 @@ export class FabDialComponent implements OnInit {
     }
 
     public openDial(): void {
-        this.isOpen = true;
-        this.updateItemsPositions();
+        if (!this.isOpen) {
+            this.isOpen = true;
+            this.updateItemsPositions();
+        }
     }
 
     public closeDial(): void {
-        this.isOpen = false;
-        this.resetItemsPositions();
+        if (this.isOpen) {
+            this.isOpen = false;
+            this.resetItemsPositions();
+        }
     }
 
     public toggleDial(): void {
@@ -56,11 +62,11 @@ export class FabDialComponent implements OnInit {
 
     private updateItemsPositions() {
         for (let i = 0; i < this.items.length; i++) {
-            const offsetAngle = 175 / this.items.length;
+            const offsetAngle = ANGLE_RANGE / this.items.length;
             const rotateAngle = offsetAngle * i;
 
-            const radius = 100;
-            const angle = (rotateAngle - 205) * (Math.PI / 180);
+            const radius = RADIUS;
+            const angle = (rotateAngle - ANGLE_OFFSET) * (Math.PI / 180);
             const cos = Math.cos(angle);
             const sin = Math.sin(angle);
             this.items[i].translateX = radius * cos;

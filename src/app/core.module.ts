@@ -19,6 +19,8 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 
+import { OutsideClickDirective } from '@shared/directives/outside-click.directive';
+
 const MATERIAL_MODULES = [
     MatInputModule,
     MatIconModule,
@@ -41,6 +43,9 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
 }
 
 @NgModule({
+	declarations: [
+        OutsideClickDirective
+    ],
 	imports: [
         ReactiveFormsModule,
         TranslateModule.forChild(),
@@ -50,6 +55,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
         ReactiveFormsModule,
         TranslateModule,
         ...MATERIAL_MODULES,
+        OutsideClickDirective
 	]
 })
 export class CoreModule { }

@@ -1,25 +1,33 @@
 <mat-menu #menu="matMenu" (closed)="onMenuClosed()">
+    <!-- Class element actions -->
     <ng-container *ngIf="menuType === 'class-element'">
         <button mat-menu-item (click)="rotateItem()">
             <mat-icon>rotate_right</mat-icon>
             <span>{{ 'pages.class-layout.actions.rotate' | translate }}</span>
         </button>
     </ng-container>
+
+    <!-- Students actions -->
     <ng-container *ngIf="menuType === 'student'">
         <button mat-menu-item [matMenuTriggerFor]="vertebrates">
             <mat-icon>palette</mat-icon>
             <span>{{ 'pages.class-layout.actions.color' | translate }}</span>
         </button>
-        <button mat-menu-item (click)="editItem()">
-            <mat-icon>edit</mat-icon>
-            <span>{{ 'pages.class-layout.actions.edit' | translate }}</span>
-        </button>
-        <button mat-menu-item (click)="deleteItem()">
-            <mat-icon>delete</mat-icon>
-            <span>{{ 'pages.class-layout.actions.delete' | translate }}</span>
-        </button>
     </ng-container>
+
+    <mat-divider></mat-divider>
+
+    <!-- Generic actions -->
+    <button mat-menu-item (click)="editItem()">
+        <mat-icon>edit</mat-icon>
+        <span>{{ 'pages.class-layout.actions.edit' | translate }}</span>
+    </button>
+    <button mat-menu-item (click)="deleteItem()">
+        <mat-icon>delete</mat-icon>
+        <span>{{ 'pages.class-layout.actions.delete' | translate }}</span>
+    </button>
 </mat-menu>
+
 <mat-menu #vertebrates="matMenu">
     <button mat-menu-item (click)="changeColor('red')">{{ 'pages.class-layout.colors.red' | translate }}</button>
     <button mat-menu-item (click)="changeColor('orange')">{{ 'pages.class-layout.colors.orange' | translate }}</button>
@@ -89,6 +97,7 @@
     </ng-container>
 </ng-container>
 
-<co-fab-dial
+<co-fab-dial #fabDial
     [items]="dialItems"
+    cmOutsideClick (clickOutside)="fabDial.closeDial()"
 ></co-fab-dial>
