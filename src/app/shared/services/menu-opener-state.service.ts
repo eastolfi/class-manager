@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { ClassItem } from '@app/pages/class-layout/class-layout.component';
 import { BehaviorSubject } from 'rxjs';
+
+import { ClassItem } from '@shared/models/class-layout';
 
 @Injectable({
     providedIn: 'root'
@@ -9,14 +10,6 @@ export class MenuOpenerStateService {
     private _state$: BehaviorSubject<ClassItem> = new BehaviorSubject(null);
 
     constructor() { }
-
-    // public onMenuOpened(opener: ClassItem): void {
-    //     this.state$.next(opener);
-    // }
-
-    // public onMenuClosed(): void {
-    //     this.state$.next(null);
-    // }
 
     public get state$(): BehaviorSubject<ClassItem> {
         return this._state$;

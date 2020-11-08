@@ -1,31 +1,15 @@
-import { Component, OnInit, SecurityContext } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { Observable } from 'rxjs';
+
 import { DialItem } from '@app/shared/components/fab-dial/fab-dial.component';
 import { ItemEditDialogComponent } from '@app/shared/components/item-edit-dialog/item-edit-dialog.component';
+import { ClassItem, ClassLayout, ClassName } from '@app/shared/models/class-layout';
+import { ClassLayoutService } from '@app/shared/services/class-layout.service';
 import { DomService } from '@app/shared/services/dom.service';
 import { MenuOpenerStateService } from '@app/shared/services/menu-opener-state.service';
-import { IClassName, PersistenceService, Position } from '@app/shared/services/persistence.service';
-import { Observable, of, Subscription } from 'rxjs';
-import { defaultIfEmpty, filter, map, toArray } from 'rxjs/operators';
-
-export interface ClassItem {
-    id: number;
-    label: string;
-    type: string;
-    color?: string;
-    orientation?: string;
-    editing?: boolean;
-    lastKnownPosition?: Position,
-    position?: Position
-}
-
-export interface IClass {
-    id: number;
-    name: string;
-    classElements: ClassItem[];
-}
+import { PersistenceService } from '@app/shared/services/persistence.service';
 
 @Component({
     selector: 'co-class-layout',
@@ -36,12 +20,20 @@ export class ClassLayoutComponent implements OnInit {
 
     public form: FormGroup;
 
-    // public classList$: Observable<IClass[]>;
-    public classNameList$: Observable<IClassName[]>;
+    public readonly ADD_CLASS_ID = 0;
+    private readonly UNSELECTED_CLASS_ID = -1;
+
+    public classNameList$: Observable<ClassName[]>;
     public students: ClassItem[] = [];
     public classElements: ClassItem[] = [];
-    public defaultClassName: IClassName = { id: 99, name: '' }
-    public unselectedClassId = -1;
+
+    public dialItems: DialItem[] = [
+        { icon: 'sensor_door', onClick: this.addClassElement.bind(this), disabled: true },
+        { icon: 'person_add', onClick: this.addStudent.bind(this), disabled: true },
+        { icon: 'save', onClick: this.print.bind(this), disabled: true },
+        { icon: 'cloud_download', onClick: this.export.bind(this), disabled: true },
+        { icon: 'sync_alt', onClick: this.import.bind(this), disabled: false }
+    ];
 
     private COLORS = {
         red: 'lightcoral',
@@ -51,24 +43,17 @@ export class ClassLayoutComponent implements OnInit {
         blue: 'lightskyblue',
         none: 'inherit'
     };
-    public dialItems: DialItem[] = [
-        { icon: 'sensor_door', onClick: this.addClassElement.bind(this), disabled: true },
-        { icon: 'person_add', onClick: this.addStudent.bind(this), disabled: true },
-        { icon: 'save', onClick: this.print.bind(this), disabled: true },
-        { icon: 'cloud_download', onClick: this.export.bind(this), disabled: true },
-        { icon: 'sync_alt', onClick: this.import.bind(this), disabled: false }
-    ];
 
     constructor(
-        private readonly sanitizer: DomSanitizer,
         private readonly fb: FormBuilder,
         private readonly dialog: MatDialog,
         private readonly persistanceService: PersistenceService,
+        private readonly classLayoutService: ClassLayoutService,
         private readonly domService: DomService,
         private readonly menuOpenerState: MenuOpenerStateService
     ) {
         this.form = this.fb.group({
-            classId: [this.unselectedClassId],
+            classId: [this.UNSELECTED_CLASS_ID],
             className: ['', Validators.required]
         });
     }
@@ -97,8 +82,9 @@ export class ClassLayoutComponent implements OnInit {
     public get classId(): number {
         return this.form.get('classId').value;
     }
+
     public get isNewClass(): boolean {
-        return this.classId && this.classId !== this.defaultClassName.id && this.classId !== this.unselectedClassId;
+        return this.classId && this.classId !== this.ADD_CLASS_ID && this.classId !== this.UNSELECTED_CLASS_ID;
     }
 
     public saveClass(): void {
@@ -106,23 +92,12 @@ export class ClassLayoutComponent implements OnInit {
             return;
         }
 
-        const classId = this.form.value.classId !== this.defaultClassName.id ? this.form.value.classId : (new Date()).getTime();
+        const classId = this.form.value.classId !== this.ADD_CLASS_ID ? this.form.value.classId : (new Date()).getTime();
         const className = this.form.value.className;
-        // const className = this.classList$.pipe(
-        //     filter(c => {
-        //         debugger;
-        //         return true;
-        //     })
-        //     // filter((c: { id: number, name: string }) => c.id === classId),
-        //     // first(),
-        //     // map((c: { id: number, name: string }) => c.name)
-        // ).subscribe((asd: any) => {
-        //     debugger;
-        // })
-        const classData: IClass = {
+        const classData: ClassLayout = {
             id: classId,
             name: className,
-            classElements: [
+            classItems: [
                 ...this.classElements,
                 ...this.students
             ]
@@ -137,7 +112,7 @@ export class ClassLayoutComponent implements OnInit {
     public deleteClass(): void {
         if (confirm('Sure sure ?')) {
             this.persistanceService.deleteClass(this.classId)
-            .subscribe(() => this.reset());
+            .subscribe(() => this.resetLayout());
         }
     }
 
@@ -147,36 +122,16 @@ export class ClassLayoutComponent implements OnInit {
 
     public changeColor(color: string) {
         this.menuOpenerState.state$.value.color = this.COLORS[color];
+        this.saveClass();
     }
 
-
-    // drop(event: CdkDragDrop<string[]>) {
-    //     if (event.previousContainer === event.container) {
-    //         moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-    //     } else {
-    //         transferArrayItem(event.previousContainer.data,
-    //             event.container.data,
-    //             event.previousIndex,
-    //             event.currentIndex);
-    //     }
-    // }
-
-    // public currentMenuOpener: ClassItem = null;
-
-    // public setCurrentMenuOpener(opener: ClassItem) {
-    //     this.currentMenuOpener = opener;
-    // }
     public rotateItem() {
-        // if (this.menuOpener) {
         if (this.menuOpener.orientation === 'vertical') {
             this.menuOpener.orientation = 'horizontal';
         } else {
             this.menuOpener.orientation = 'vertical';
         }
-        // }
-        // this.currentMenuOpener = null;
     }
-
 
     public addStudent() {
         this.students.push({
@@ -186,18 +141,18 @@ export class ClassLayoutComponent implements OnInit {
             type: 'student'
         });
         this.saveClass();
-        // this.closeDial();
     }
+
     public addClassElement() {
         this.classElements.push({
             id: this.getId(),
             label: 'Ventana',
             type: 'class-element',
             orientation: 'vertical'
-        })
+        });
     }
+
     public editItem() {
-        // item.editing = !item.editing;
         const opener = this.menuOpener;
 
         const dialogRef = this.dialog.open(ItemEditDialogComponent, {
@@ -209,80 +164,65 @@ export class ClassLayoutComponent implements OnInit {
             if (editedItem) {
                 opener.label = editedItem.label;
             }
-            // this.currentMenuOpener = null;
-        })
+        });
     }
 
-    // public endEditing(item: ClassItem, event) {
-    //     item.label = event.srcElement.value
-    //     item.editing = !item.editing;
-    //     this.currentMenuOpener = null;
-    // }
     public deleteItem(): void {
-        if (this.menuOpener.type === 'student') {
-            const itemId = this.menuOpener.id;
-            this.onMenuClosed();
-            // Change to ID
-            this.students = this.students.filter(student => student.id !== itemId);
+        const { id: itemId, type } = this.menuOpener;
+        this.onMenuClosed();
 
-            this.saveClass();
+        if (type === 'student') {
+            this.students = this.students.filter(student => student.id !== itemId);
+        } else {
+            this.classElements = this.classElements.filter(element => element.id !== itemId);
         }
 
-        // this.currentMenuOpener = null;
-    }
-
-
-
-    public resetPosition(): void {
-        document.querySelectorAll('.draggable').forEach((item: HTMLElement) => item.style.transform = '')
-        // this.classElements[1].lastKnownPosition = null;
+        this.saveClass();
     }
 
     private initListeners(): void {
         this.persistanceService.saveRequestSubject.subscribe(() => this.saveClass());
         this.classIdControl.valueChanges.subscribe((classId: number) => {
-            if (classId === this.unselectedClassId) {
-                // reload classnames
-                this.getClassNames();
-                this.classElements = [];
-                this.students = [];
-                this.disableFabDialForNoClass();
-                // class items = []
-            } else {
-                this.enableFabDialForClass();
+            switch (classId) {
+                case this.UNSELECTED_CLASS_ID:
+                    this.getClassNames();
+                    this.initClassElements();
+                    this.disableFabDialForNoClass();
 
-                // get class elements
-                this.persistanceService.getClasses()
-                .pipe(
-                    filter((c: IClass) => c.id === classId),
-                    defaultIfEmpty({}),
-                ).subscribe(({ id, name, classElements }: IClass) => {
+                    break;
+                case this.ADD_CLASS_ID:
+                    this.enableFabDialForClass();
+                    this.initClassElements();
                     this.form.patchValue({
-                        classId: id || this.defaultClassName.id,
-                        className: name || this.defaultClassName.name
+                        className: ''
                     }, { emitEvent: false });
 
-                    of(...classElements || []).pipe(
-                        filter((classElement: ClassItem) => classElement.type === 'class-element'),
-                        toArray()
-                    ).subscribe((classElements: ClassItem[]) => {
+                    break;
+                default:
+                    this.enableFabDialForClass();
+
+                    this.classLayoutService.getClassById(classId)
+                    .subscribe(({ id, name, classElements, students }: ClassLayout) => {
+                        this.form.patchValue({
+                            classId: id || this.ADD_CLASS_ID,
+                            className: name || ''
+                        }, { emitEvent: false });
+
                         this.classElements = classElements;
+                        this.students = students;
                     });
-                    of(...classElements || []).pipe(
-                        filter((classElement: ClassItem) => classElement.type === 'student'),
-                        toArray()
-                    ).subscribe((classElements: ClassItem[]) => {
-                        this.students = classElements;
-                    });
-                });
             }
         });
-        // this.classIdControl.valueChanges.subscribe(this.onClassChanged(this._classList$).bind(this));
+    }
+
+    private initClassElements(): void {
+        this.classElements = [];
+        this.students = [];
     }
 
     private disableFabDialForNoClass(): void {
         this.dialItems.forEach((item: DialItem) => {
-            // change to name or id
+            // TODO - change to name or id
             if (item.icon !== 'sync_alt') {
                 item.disabled = true;
             } else {
@@ -292,105 +232,43 @@ export class ClassLayoutComponent implements OnInit {
     }
     private enableFabDialForClass(): void {
         this.dialItems.forEach((item: DialItem) => {
-            // change to name or id
             item.disabled = false;
         });
     }
 
-    // private _classList$: Observable<IClass>;
-    private getClassNames(refresh: boolean = false): void {
-        // if (refresh) {
-        //     this.classElements = [];
-        //     this.students = [];
-        //     this.form.patchValue({
-        //         classId: this.unselectedClassId
-        //     }, { emitEvent: true });
-        // }
-
-        // this._classList$ = this.persistanceService.getClasses();
-
-        this.classNameList$ = this.persistanceService.getClasses()
-        .pipe(
-            map(({ id, name }: IClass) => ({ id, name })),
-            toArray()
-        );
-        // this.classList$ = this._classList$.pipe(toArray());
+    private getClassNames(): void {
+        this.classNameList$ = this.classLayoutService.getClassNames();
     }
 
-    // private onClassChanged(classList$: Observable<IClass>): (id: number) => void {
-    //     return (id: number) => {
-    //         classList$.pipe(
-    //             filter((c: IClass) => c.id === id),
-    //             defaultIfEmpty({}),
-    //         ).subscribe(({ id, name, classElements }: IClass) => {
-    //             console.log(id, name, classElements.length);
-    //             this.form.patchValue({
-    //                 classId: id || this.defaultClassName.id,
-    //                 className: name || this.defaultClassName.name
-    //             }, { emitEvent: false });
-
-    //             of(...classElements || []).pipe(
-    //                 filter((classElement: ClassItem) => classElement.type === 'class-element'),
-    //                 toArray()
-    //             ).subscribe((classElements: ClassItem[]) => {
-    //                 this.classElements = classElements;
-    //             });
-    //             of(...classElements || []).pipe(
-    //                 filter((classElement: ClassItem) => classElement.type === 'student'),
-    //                 toArray()
-    //             ).subscribe((classElements: ClassItem[]) => {
-    //                 this.students = classElements;
-    //             });
-    //         })
-    //     }
-    // }
-
-    private reset(): void {
-        this.classIdControl.patchValue(this.unselectedClassId, { emitEvent: true });
+    private resetLayout(): void {
+        this.classIdControl.patchValue(this.UNSELECTED_CLASS_ID, { emitEvent: true });
     }
 
     private import(): void {
-        const uploader: HTMLInputElement = document.createElement('input');
-        uploader.hidden = true;
-        uploader.type = 'file';
-        uploader.onchange = (event) => {
-            const files = (event.target as HTMLInputElement).files;
-
-
-            var fileReader = new FileReader();
-            fileReader.onload = (fileLoadedEvent: ProgressEvent) => {
-                // check
-                const { id, name, classElements } = JSON.parse((fileLoadedEvent.target as FileReader).result.toString());
-                // console.log(textFromFileLoaded);
-                const classData: IClass = {
-                    id,
-                    name,
-                    classElements
-                };
-                this.persistanceService.saveClass(classData);
-                this.getClassNames();
-
+        this.domService.uploadFile().subscribe((blob: string) => {
+            const { id, name, classItems } = JSON.parse(blob) as ClassLayout;
+            const classData: ClassLayout = {
+                id,
+                name,
+                classItems
             };
+            this.persistanceService.saveClass(classData);
+            this.getClassNames();
+        });
 
-            fileReader.readAsText(files[0], "UTF-8");
-        }
-
-        window.document.body.append(uploader);
-
-        uploader.click();
     }
 
     private print(): any {
-        print();
+        window.print();
     }
 
     private export(): void {
-        const classId = this.form.value.classId !== this.defaultClassName.id ? this.form.value.classId : (new Date()).getTime();
+        const classId = this.form.value.classId !== this.ADD_CLASS_ID ? this.form.value.classId : (new Date()).getTime();
         const className = this.form.value.className;
-        const classData: IClass = {
+        const classData: ClassLayout = {
             id: classId,
             name: className,
-            classElements: [
+            classItems: [
                 ...this.classElements,
                 ...this.students
             ]

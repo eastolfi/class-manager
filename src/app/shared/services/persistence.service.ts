@@ -1,20 +1,8 @@
 import { Injectable } from '@angular/core';
-import { ClassItem, IClass } from '@app/pages/class-layout/class-layout.component';
-import { combineLatest, from, merge, Observable, Observer, of, Subject } from 'rxjs';
-import { combineAll, concatAll, distinct, distinctUntilKeyChanged, filter, map, mergeAll, mergeMap, toArray, zip, zipAll } from 'rxjs/operators';
+import { merge, Observable, Observer, of, Subject } from 'rxjs';
+import { distinct, filter, toArray } from 'rxjs/operators';
 
-export interface Position {
-    x: number;
-    y: number;
-}
-export interface ItemPosition {
-    id: number;
-    position: Position;
-}
-export interface IClassName {
-    id: number;
-    name: string;
-}
+import { ClassItem, ClassLayout, ItemPosition } from '@shared/models/class-layout';
 
 @Injectable({
     providedIn: 'root'
@@ -26,12 +14,13 @@ export class PersistenceService {
 
     constructor() { }
 
-    public saveClass(classData: IClass): void {
-        const classElements = classData.classElements.map((element: ClassItem) => {
-            element.position = element.position || element.lastKnownPosition;
-            return element;
+    public saveClass(classData: ClassLayout): void {
+        const classItems = classData.classItems.map((item: ClassItem) => {
+            item.position = item.position || item.lastKnownPosition;
+            return item;
         });
-        classData.classElements = classElements;
+
+        classData.classItems = classItems;
 
         merge(
             of(classData),
@@ -40,7 +29,7 @@ export class PersistenceService {
             distinct(e => e.id),
             toArray()
         )
-        .subscribe((items: IClass[]) => {
+        .subscribe((items: ClassLayout[]) => {
             console.log(items);
             localStorage.setItem('classes', JSON.stringify(items));
         });
@@ -53,10 +42,10 @@ export class PersistenceService {
     public deleteClass(classId: number): Observable<void> {
         return new Observable((observer: Observer<void>) => {
             this.getClasses().pipe(
-                filter((savedClass: IClass) => savedClass.id !== classId),
+                filter((savedClass: ClassLayout) => savedClass.id !== classId),
                 toArray()
             )
-            .subscribe((items: IClass[]) => {
+            .subscribe((items: ClassLayout[]) => {
                 console.log(items);
                 localStorage.setItem('classes', JSON.stringify(items));
 
@@ -66,18 +55,14 @@ export class PersistenceService {
         })
     }
 
-    public getClasses(): Observable<IClass> {
-        // { id: number, name: string }
-        // const asd: any[] = [ { id: 1, name: 'string' }, { id: 2, name: 'string2' }, { id: 3, name: 'string3' }];
-        // return from( asd );
-        const stored: IClass[] = JSON.parse(localStorage.getItem('classes')) || [];
-        // const names: IClassName[] = stored.map((({ id, name }: IClass) => ({ id, name } as IClassName)));
+    public getClasses(): Observable<ClassLayout> {
+        const stored: ClassLayout[] = JSON.parse(localStorage.getItem('classes')) || [];
         return of(...stored);
     }
 
-    public getClassData(classId: number): Observable<IClass[]> {
+    public getClassData(classId: number): Observable<ClassLayout[]> {
         return of (
-            (JSON.parse(localStorage.getItem('classes')) || []).filter(({ id }: IClass) => classId === id)
+            (JSON.parse(localStorage.getItem('classes')) || []).filter(({ id }: ClassLayout) => classId === id)
         )
     }
 
