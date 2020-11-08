@@ -2,12 +2,12 @@
     <div class="example-box draggable class-element" [class.horizontal]="item.orientation === 'horizontal'"
         *ngIf="item.type === 'class-element'"
         cdkDrag
-        (cdkDragMoved)="onDrag(item, $event)"
-        (cdkDragReleased)="onDragReleased(item)"
+        (cdkDragMoved)="onDrag($event)"
+        (cdkDragReleased)="onDragReleased()"
         [cdkDragFreeDragPosition]="item.position"
     >
         <span>{{ item.label }}</span>
-        <button *ngIf="menu" class="action" mat-icon-button (click)="onMenuOpened(item)"
+        <button *ngIf="menu" class="action" mat-icon-button (click)="openMenu()"
             [matMenuTriggerFor]="menu" [matMenuTriggerData]="'test'"
             aria-label="Example icon button with a home icon">
             <mat-icon>more_vert</mat-icon>
@@ -17,14 +17,14 @@
     <div class="example-box draggable student" [style.background-color]="item.color"
         *ngIf="item.type === 'student'"
         cdkDrag
-        (dblclick)="setOpenerAndEdit(item)"
-        (cdkDragMoved)="onDrag(item, $event)"
-        (cdkDragReleased)="onDragReleased(item)"
+        (dblclick)="setOpenerAndEdit()"
+        (cdkDragMoved)="onDrag($event)"
+        (cdkDragReleased)="onDragReleased()"
         [cdkDragFreeDragPosition]="item.position"
     >
         <span>{{ item.label }}</span>
 
-        <button *ngIf="menu" class="action" mat-icon-button (click)="onMenuOpened(item)" [matMenuTriggerFor]="menu"
+        <button *ngIf="menu" class="action" mat-icon-button (click)="openMenu()" #menuTrigger="matMenuTrigger" [matMenuTriggerFor]="menu"
             [matMenuTriggerData]="'test'" aria-label="Example icon button with a home icon">
             <mat-icon>more_vert</mat-icon>
         </button>
