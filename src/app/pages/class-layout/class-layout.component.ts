@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 
 import { DialItem } from '@app/shared/components/fab-dial/fab-dial.component';
@@ -10,6 +9,7 @@ import { ClassLayoutService } from '@app/shared/services/class-layout.service';
 import { DomService } from '@app/shared/services/dom.service';
 import { MenuOpenerStateService } from '@app/shared/services/menu-opener-state.service';
 import { PersistenceService } from '@app/shared/services/persistence.service';
+import { DialogService } from '@app/shared/services/dialog.service';
 
 @Component({
     selector: 'co-class-layout',
@@ -46,7 +46,7 @@ export class ClassLayoutComponent implements OnInit {
 
     constructor(
         private readonly fb: FormBuilder,
-        private readonly dialog: MatDialog,
+        private readonly dialogService: DialogService,
         private readonly persistanceService: PersistenceService,
         private readonly classLayoutService: ClassLayoutService,
         private readonly domService: DomService,
@@ -155,12 +155,13 @@ export class ClassLayoutComponent implements OnInit {
     public editItem() {
         const opener = this.menuOpener;
 
-        const dialogRef = this.dialog.open(ItemEditDialogComponent, {
-            width: '300px',
-            data: this.menuOpener
-        });
-
-        dialogRef.afterClosed().subscribe((editedItem: ClassItem) => {
+        this.dialogService.openDialog<ItemEditDialogComponent, ClassItem>(
+            ItemEditDialogComponent,
+            {
+                width: '300px',
+                data: opener
+            }
+        ).subscribe((editedItem: ClassItem) => {
             if (editedItem) {
                 opener.label = editedItem.label;
             }
