@@ -1,4 +1,4 @@
-<mat-menu #menu="matMenu" (closed)="onMenuClosed()">
+<mat-menu #optionsMenu="matMenu" (closed)="onMenuClosed()">
     <!-- Class element actions -->
     <ng-container *ngIf="menuType === 'class-element'">
         <button mat-menu-item (click)="rotateItem()">
@@ -9,7 +9,7 @@
 
     <!-- Students actions -->
     <ng-container *ngIf="menuType === 'student'">
-        <button mat-menu-item [matMenuTriggerFor]="vertebrates">
+        <button mat-menu-item [matMenuTriggerFor]="colorSubMenu">
             <mat-icon>palette</mat-icon>
             <span>{{ 'pages.class-layout.actions.color' | translate }}</span>
         </button>
@@ -28,7 +28,7 @@
     </button>
 </mat-menu>
 
-<mat-menu #vertebrates="matMenu">
+<mat-menu #colorSubMenu="matMenu">
     <button mat-menu-item (click)="changeColor('red')">{{ 'pages.class-layout.colors.red' | translate }}</button>
     <button mat-menu-item (click)="changeColor('orange')">{{ 'pages.class-layout.colors.orange' | translate }}</button>
     <button mat-menu-item (click)="changeColor('yellow')">{{ 'pages.class-layout.colors.yellow' | translate }}</button>
@@ -43,11 +43,11 @@
             <mat-form-field class="w-100" appearance="fill">
                 <mat-label>{{ 'pages.class-layout.classes.list' | translate }}</mat-label>
                 <mat-select formControlName="classId">
-                    <mat-option [value]="defaultClassName.id">
+                    <mat-option [value]="ADD_CLASS_ID">
                         {{ 'pages.class-layout.classes.add' | translate }}
                     </mat-option>
-                    <mat-option *ngFor="let _class of classNameList$ | async" [value]="_class.id">
-                        {{ _class.name }}
+                    <mat-option *ngFor="let className of classNameList$ | async" [value]="className.id">
+                        {{ className.name }}
                     </mat-option>
                 </mat-select>
             </mat-form-field>
@@ -63,37 +63,17 @@
         <div class="col-2" *ngIf="isNewClass">
             <button mat-raised-button color="warn" (click)="deleteClass()"><mat-icon>delete</mat-icon></button>
         </div>
-        <!-- <div class="col-3">
-            <co-class-item [item]="{ label: 'asd', type: 'class-element' }"></co-class-item>
-        </div> -->
         <mat-divider></mat-divider>
     </div>
-
-    <!-- <button class="page-action" mat-fab color="primary" (click)="addStudent()"
-        aria-label="Example icon button with a delete icon">
-        <mat-icon>add</mat-icon>
-    </button> -->
-    <!-- <button class="page-action" style="bottom: 125px" mat-fab color="primary" (click)="resetPosition()"
-        aria-label="Example icon button with a delete icon">
-        <mat-icon>refresh</mat-icon>
-    </button> -->
-    <!-- <input id="triggerButton" class="triggerButton" type="checkbox">
-    <label for="triggerButton">X</label> -->
-    <!-- <div class="dial-item one" [class.open]="isOpen">1</div>
-    <div class="dial-item two" [class.open]="isOpen">2</div>
-    <div class="dial-item three" [class.open]="isOpen">3</div> -->
-    <!-- <button class="page-action dial-item one" [class.open]="isOpen" (click)="closeDial()" mat-fab color="primary" aria-label=""><mat-icon>sensor_door</mat-icon></button>
-    <button class="page-action dial-item two" [class.open]="isOpen" (click)="closeDial()" mat-fab color="primary" aria-label=""><mat-icon>group_add</mat-icon></button> -->
-         <!-- *ngIf="classIdControl.value !== -1 && classIdControl.value !== 99" -->
 </div>
 
 <ng-container *ngIf="classElements.length || students.length">
     <ng-container *ngIf="classElements.length">
-        <co-class-item class="class-item class-element" *ngFor="let classElement of classElements" [menu]="menu" [item]="classElement"></co-class-item>
+        <co-class-item class="class-item class-element" *ngFor="let classElement of classElements" [menu]="optionsMenu" [item]="classElement"></co-class-item>
     </ng-container>
 
     <ng-container *ngIf="students.length">
-        <co-class-item class="class-item class-student" *ngFor="let student of students" [menu]="menu" [item]="student"></co-class-item>
+        <co-class-item class="class-item class-student" *ngFor="let student of students" [menu]="optionsMenu" [item]="student"></co-class-item>
     </ng-container>
 </ng-container>
 

@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { ClassItem } from '@app/pages/class-layout/class-layout.component';
+import { ClassItem } from '@shared/models/class-layout';
 
 @Component({
     selector: 'co-item-edit-dialog',

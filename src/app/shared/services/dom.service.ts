@@ -1,6 +1,7 @@
 import { Injectable, SecurityContext } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Packer } from 'docx';
+import { Observable, Observer } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
@@ -38,6 +39,29 @@ export class DomService {
         document.body.appendChild(link);
 
         link.click();
+    }
+
+    public uploadFile(): Observable<string> {
+        return new Observable((observer: Observer<string>) => {
+            const uploader: HTMLInputElement = document.createElement('input');
+            uploader.hidden = true;
+            uploader.type = 'file';
+            uploader.onchange = (event) => {
+                const files = (event.target as HTMLInputElement).files;
+
+                var fileReader = new FileReader();
+                fileReader.onload = (fileLoadedEvent: ProgressEvent) => {
+                    observer.next((fileLoadedEvent.target as FileReader).result.toString());
+                    observer.complete();
+                };
+
+                fileReader.readAsText(files[0], "UTF-8");
+            }
+
+            window.document.body.append(uploader);
+
+            uploader.click();
+        })
     }
 
     private createElement(tag: string, attrs?): HTMLElement {
